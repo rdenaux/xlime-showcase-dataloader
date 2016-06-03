@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- Log4j Configuration file -->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+  <!-- Console appender -->
+  <appender name="console" class="org.apache.log4j.ConsoleAppender"> 
+    <param name="Target" value="System.out"/> 
+    <layout class="org.apache.log4j.PatternLayout"> 
+      <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p %c{1} - %m%n"/> 
+    </layout> 
+  </appender> 
+  
+  <appender name="file" class="org.apache.log4j.RollingFileAppender"> 
+    <param name="file" value="log/brexit-data-processing.log"/>
+    <param name="MaxFileSize" value="50MB"/>
+    <param name="MaxBackupIndex" value="5"/>
+    <layout class="org.apache.log4j.PatternLayout"> 
+      <param name="ConversionPattern" value="%d{ABSOLUTE} %p %t %c - %m%n"/> 
+    </layout> 
+  </appender> 
+  
+  <!-- File appender: specific debug level for classes and packages -->
+  
+  <logger name="eu.xlime">
+  	<level value="info"/> 
+  </logger>
+
+  <root> 
+    <priority value ="warn" /> 
+    <appender-ref ref="console" /> 
+    <appender-ref ref="file" />
+  </root>
+ 
+  
+</log4j:configuration>
