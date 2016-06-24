@@ -1,0 +1,5 @@
+/target/
+/etc/
+/.classpath
+/log4j-xlime-uiEntMongoLoader.xml
+/.settings/

@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>eu.xlime</groupId>
-  <artifactId>brexit-data-processing</artifactId>
+  <artifactId>showcase-data-loader</artifactId>
   <packaging>jar</packaging>
-  <version>0.0.2</version>
-  <name>Brexit Data Processing</name>
+  <version>0.0.3-SNAPSHOT</version>
+  <name>Showcase Data Loader</name>
   <url>http://xlime-eu.github.io/</url>
   <prerequisites>
   	<maven>2.2.1</maven>
@@ -21,7 +21,7 @@
   	<dependency>
   		<groupId>eu.xlime</groupId>
   		<artifactId>kafka-consumer</artifactId>
-  		<version>0.0.1</version>
+  		<version>0.0.2-SNAPSHOT</version>
   		<exclusions>
   			<exclusion>
   				<artifactId>jsonld-java</artifactId>
@@ -32,7 +32,7 @@
   	<dependency>
   		<groupId>eu.xlime</groupId>
   		<artifactId>frontend-services</artifactId>
-  		<version>0.0.4-SNAPSHOT</version>
+  		<version>0.0.6-SNAPSHOT</version>
   	</dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -160,10 +160,10 @@
   	</developer>
   </developers>
   <scm>
-  	<connection>scm:git:git@github.com:xlime-eu/brexit-data-processing.git</connection>
-	<url>scm:git:git@github.com:xlime-eu/brexit-data-processing.git</url>
-	<developerConnection>scm:git:git@github.com:xlime-eu/brexit-data-processing.git</developerConnection>
+  	<connection>scm:git:git@github.com:xlime-eu/showcase-data-loader.git</connection>
+	<url>scm:git:git@github.com:xlime-eu/showcase-data-loader.git</url>
+	<developerConnection>scm:git:git@github.com:xlime-eu/showcase-data-loader.git</developerConnection>
   </scm>
 
-  <description>Utilities for gathering and processing the xLiMe Brexit dataset</description>
+  <description>Utilities for gathering, processing and managing data in a format that is suitable for querying and using by the xLiMe Showcase</description>
 </project>

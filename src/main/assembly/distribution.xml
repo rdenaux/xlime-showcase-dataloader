@@ -6,15 +6,11 @@
 	<formats>
 		<format>zip</format>
 	</formats>
-	<baseDirectory>brexit-data-processor-${version}</baseDirectory>
+	<baseDirectory>showcase-data-processor-${version}</baseDirectory>
 	<fileSets>
 		<fileSet>
 			<directory>${basedir}/src/main/dist</directory>
 			<outputDirectory>/</outputDirectory>
-		</fileSet>
-		<fileSet>
-			<directory>${basedir}/etc</directory>
-			<outputDirectory>/etc</outputDirectory>
 		</fileSet>
 	</fileSets>
 <!-- Doesn't work, not sure why. Need to specify version in both pom.xml and the frontend context specifier
