@@ -1,0 +1,730 @@
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix freebase: <http://rdf.freebase.com/ns/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix kdo: <http://kdo.render-project.eu/kdo#> .
+@prefix ma: <http://www.w3.org/ns/ma-ont#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix wikide: <http://de.wikipedia.org/wiki/> .
+@prefix wikien: <http://en.wikipedia.org/wiki/> .
+@prefix wikies: <http://es.wikipedia.org/wiki/> .
+@prefix wikisl: <http://sl.wikipedia.org/wiki/> .
+@prefix xlime: <http://xlime-project.org/vocab/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://zattoo.com/processed/113684648> {
+    <http://zattoo.com/program/113684648/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasAnnotation [ rdfs:label "Herzen (Film)" ;
+                xlime:hasConfidence 5.17e-01 ;
+                xlime:hasEntity <http://de.wikipedia.org/wiki/Herzen_(Film)>,
+                    <http://en.wikipedia.org/wiki/Private_Fears_in_Public_Places_(film)>,
+                    wikies:Asuntos_privados_en_lugares_públicos,
+                    <http://fr.wikipedia.org/wiki/Cœurs>,
+                    <http://it.wikipedia.org/wiki/Cuori_(film)>,
+                    <http://pt.wikipedia.org/wiki/Cœurs>,
+                    <http://ru.wikipedia.org/wiki/Сердца_(фильм)> ],
+            [ rdfs:label "Stadt" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Stadt,
+                    wikien:City,
+                    wikies:Ciudad,
+                    <http://eu.wikipedia.org/wiki/Hiri>,
+                    <http://fr.wikipedia.org/wiki/Ville>,
+                    <http://hr.wikipedia.org/wiki/Grad>,
+                    <http://it.wikipedia.org/wiki/Città>,
+                    <http://pt.wikipedia.org/wiki/Cidade>,
+                    <http://ru.wikipedia.org/wiki/Город>,
+                    wikisl:Mesto,
+                    <http://sr.wikipedia.org/wiki/Град> ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T16:02:07.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022976.0 ;
+                xlime:hasSubittleText """Ja, im Herzen der Stadt.
+Dort kann man das kaufen.
+Oder im online-Shop.
+Auf Erdbär.eu findet man uns im
+Internet.
+Man findet dort sicher das richtige
+Kleidungsstück.
+Ist es auch leistbar?
+Unsere Sachen sind preiswert.
+Sie sind den Preis wert.
+Jetzt wieder elegante Mode von
+euch.""" ;
+                xlime:hasZattooCID "orf-2" ] .
+}
+
+{
+    <http://zattoo.com/processed/113684648> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:03:27+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:03:23.280305+00:00"^^xsd:dateTime ] .
+}
+
+
+
+<http://zattoo.com/processed/113684536> {
+    <http://zattoo.com/program/113684536/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasAnnotation [ rdfs:label "Taxi" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Taxi,
+                    wikien:Taxicab,
+                    wikies:Taxi,
+                    <http://eu.wikipedia.org/wiki/Taxi>,
+                    <http://fr.wikipedia.org/wiki/Taxi>,
+                    <http://hr.wikipedia.org/wiki/Taksi>,
+                    <http://it.wikipedia.org/wiki/Taxi>,
+                    <http://pt.wikipedia.org/wiki/Táxi>,
+                    <http://ru.wikipedia.org/wiki/Такси>,
+                    wikisl:Taksi,
+                    <http://sr.wikipedia.org/wiki/Такси> ],
+            [ rdfs:label "Liste der britischen Monarchen" ;
+                xlime:hasConfidence 1.21e-01 ;
+                xlime:hasEntity wikide:Liste_der_britischen_Monarchen,
+                    wikien:List_of_British_monarchs,
+                    <http://es.wikipedia.org/wiki/Anexo:Monarcas_británicos>,
+                    <http://eu.wikipedia.org/wiki/Ingalaterrako_errege-erreginen_zerrenda>,
+                    <http://fr.wikipedia.org/wiki/Liste_des_monarques_britanniques>,
+                    <http://it.wikipedia.org/wiki/Sovrani_del_Regno_Unito>,
+                    <http://pt.wikipedia.org/wiki/Anexo:Lista_de_monarcas_britânicos>,
+                    <http://ru.wikipedia.org/wiki/Список_монархов_Британских_островов>,
+                    wikisl:Seznam_britanskih_kraljev,
+                    <http://sr.wikipedia.org/wiki/Списак_британских_монарха> ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T15:55:35.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022878.0 ;
+                xlime:hasSubittleText """Aber ein Taxi zur Königin
+ist erlaubt!
+Na gut.
+Da wird die Königin aber staunen.
+Kalli möchte ein Taxi sein.
+Und schwups ...
+ist Kalli ein Kalli-Taxi.
+Das ist ja Hasso,
+der Hund von Kallis Nachbarn.
+Du siehst aus wie ein Taxi,
+aber du riechst wie ein Kalli!
+Ich bin Kalli-Taxi!
+Ich muss zu Opa Egbert!
+Wau!
+*Autos hupen*
+Nun fahr doch mal, manno!
+Typisch Taxi!
+Bin schon weg! Komm, Hasso!""" ;
+                xlime:hasZattooCID "rbb" ] .
+}
+
+{
+    <http://zattoo.com/processed/113684536> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:03:31+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:03:27.490958+00:00"^^xsd:dateTime ] .
+}
+
+
+
+<http://zattoo.com/processed/113684648> {
+    <http://zattoo.com/program/113684648/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasAnnotation [ rdfs:label "Nicole (Sängerin, 1964)" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity <http://de.wikipedia.org/wiki/Nicole_(Sängerin,_1964)>,
+                    <http://en.wikipedia.org/wiki/Nicole_(German_singer)>,
+                    wikies:Nicole_Hohloch,
+                    <http://fr.wikipedia.org/wiki/Nicole_Hohloch>,
+                    <http://it.wikipedia.org/wiki/Nicole_Hohloch>,
+                    <http://pt.wikipedia.org/wiki/Nicole_(cantora_alemã)>,
+                    <http://ru.wikipedia.org/wiki/Николь_(певица)> ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T16:02:47.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022986.0 ;
+                xlime:hasSubittleText """Was kostet das, was Nicole anhat.
+Das Hemd kostet ₠ 110.
+Die Hose kostet ₠ 79.
+Das ist aus Bio Baumwolle.
+Es ist biologische Seite, sagen wir.
+Es ist biologische Seide, sagen wir.
+Unsere Zielgruppe sind Menschen, die
+wissen wollen,
+woher die Sachen kommen.
+Die bewusst überlegen, wo sie was
+einkaufen.""" ;
+                xlime:hasZattooCID "orf-2" ] .
+}
+
+{
+    <http://zattoo.com/processed/113684648> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:04:07+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:04:03.350060+00:00"^^xsd:dateTime ] .
+}
+
+
+
+{
+    <http://zattoo.com/processed/113684536> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:04:17+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:04:13.154181+00:00"^^xsd:dateTime ] .
+}
+
+<http://zattoo.com/processed/113684536> {
+    <http://zattoo.com/program/113684536/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasAnnotation [ rdfs:label "Haushund" ;
+                xlime:hasConfidence 2.85e-01 ;
+                xlime:hasEntity wikide:Haushund,
+                    wikien:Dog,
+                    wikies:Canis_lupus_familiaris,
+                    <http://eu.wikipedia.org/wiki/Txakur>,
+                    <http://fr.wikipedia.org/wiki/Chien>,
+                    <http://hr.wikipedia.org/wiki/Domaći_pas>,
+                    <http://it.wikipedia.org/wiki/Canis_lupus_familiaris>,
+                    <http://pt.wikipedia.org/wiki/Canis_lupus_familiaris>,
+                    <http://ru.wikipedia.org/wiki/Собака>,
+                    wikisl:Domači_pes,
+                    <http://sr.wikipedia.org/wiki/Пас> ],
+            [ rdfs:label "Taxi" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Taxi,
+                    wikien:Taxicab,
+                    wikies:Taxi,
+                    <http://eu.wikipedia.org/wiki/Taxi>,
+                    <http://fr.wikipedia.org/wiki/Taxi>,
+                    <http://hr.wikipedia.org/wiki/Taksi>,
+                    <http://it.wikipedia.org/wiki/Taxi>,
+                    <http://pt.wikipedia.org/wiki/Táxi>,
+                    <http://ru.wikipedia.org/wiki/Такси>,
+                    wikisl:Taksi,
+                    <http://sr.wikipedia.org/wiki/Такси> ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T15:56:15.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022888.0 ;
+                xlime:hasSubittleText """Dürfen jetzt schon
+Hunde Taxi fahren?
+Was hast du gegen Hunde?
+So, Hasso.
+Jetzt warten wir auf Opa Egbert.
+*Warnsignal*
+Hallo, blaues Taxi.
+Sie dürfen hier nicht parken!
+Bitte fahren Sie weiter!
+Bin schon weg.
+Ich fahre einfach
+eine Runde um das Haus.
+Jetzt fehlt nur noch Opa Egbert.
+*Tatü-tata*
+Pfui, iih!
+So kann ich nicht
+zur Königin fahren!""" ;
+                xlime:hasZattooCID "rbb" ] .
+}
+
+
+
+<http://zattoo.com/processed/113684648> {
+    <http://zattoo.com/program/113684648/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T16:03:27.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022996.0 ;
+                xlime:hasSubittleText """Wer designt die Kleidungsstücke?
+Ein Design-Team in Salzburg.
+Wir legen viel Wert auf Details.
+Hier haben wir die Hosenträger
+eingebaut.
+Sie lassen Platz für Spielraum.
+Man kann nicht widerstehen, dass man
+daran anzieht.
+Vielen Dank.
+Du bist auch dein eigenes Model.
+Wer bestimmt, was passiert?""" ;
+                xlime:hasZattooCID "orf-2" ] .
+}
+
+{
+    <http://zattoo.com/processed/113684648> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:04:47+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:04:43.486193+00:00"^^xsd:dateTime ] .
+}
+
+
+
+<http://zattoo.com/processed/113684648> {
+    <http://zattoo.com/program/113684648/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasAnnotation [ rdfs:label "Herzen (Film)" ;
+                xlime:hasConfidence 5.17e-01 ;
+                xlime:hasEntity <http://de.wikipedia.org/wiki/Herzen_(Film)>,
+                    <http://en.wikipedia.org/wiki/Private_Fears_in_Public_Places_(film)>,
+                    wikies:Asuntos_privados_en_lugares_públicos,
+                    <http://fr.wikipedia.org/wiki/Cœurs>,
+                    <http://it.wikipedia.org/wiki/Cuori_(film)>,
+                    <http://pt.wikipedia.org/wiki/Cœurs>,
+                    <http://ru.wikipedia.org/wiki/Сердца_(фильм)> ],
+            [ rdfs:label "Stadt" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Stadt,
+                    wikien:City,
+                    wikies:Ciudad,
+                    <http://eu.wikipedia.org/wiki/Hiri>,
+                    <http://fr.wikipedia.org/wiki/Ville>,
+                    <http://hr.wikipedia.org/wiki/Grad>,
+                    <http://it.wikipedia.org/wiki/Città>,
+                    <http://pt.wikipedia.org/wiki/Cidade>,
+                    <http://ru.wikipedia.org/wiki/Город>,
+                    wikisl:Mesto,
+                    <http://sr.wikipedia.org/wiki/Град> ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T16:02:07.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022976.0 ;
+                xlime:hasSubittleText """Ja, im Herzen der Stadt.
+Dort kann man das kaufen.
+Oder im online-Shop.
+Auf Erdbär.eu findet man uns im
+Internet.
+Man findet dort sicher das richtige
+Kleidungsstück.
+Ist es auch leistbar?
+Unsere Sachen sind preiswert.
+Sie sind den Preis wert.
+Jetzt wieder elegante Mode von
+euch.""" ;
+                xlime:hasZattooCID "orf-2" ] .
+}
+
+{
+    <http://zattoo.com/processed/113684648> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:03:27+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:03:23.280305+00:00"^^xsd:dateTime ] .
+}
+
+
+
+<http://zattoo.com/processed/113684536> {
+    <http://zattoo.com/program/113684536/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasAnnotation [ rdfs:label "Taxi" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Taxi,
+                    wikien:Taxicab,
+                    wikies:Taxi,
+                    <http://eu.wikipedia.org/wiki/Taxi>,
+                    <http://fr.wikipedia.org/wiki/Taxi>,
+                    <http://hr.wikipedia.org/wiki/Taksi>,
+                    <http://it.wikipedia.org/wiki/Taxi>,
+                    <http://pt.wikipedia.org/wiki/Táxi>,
+                    <http://ru.wikipedia.org/wiki/Такси>,
+                    wikisl:Taksi,
+                    <http://sr.wikipedia.org/wiki/Такси> ],
+            [ rdfs:label "Liste der britischen Monarchen" ;
+                xlime:hasConfidence 1.21e-01 ;
+                xlime:hasEntity wikide:Liste_der_britischen_Monarchen,
+                    wikien:List_of_British_monarchs,
+                    <http://es.wikipedia.org/wiki/Anexo:Monarcas_británicos>,
+                    <http://eu.wikipedia.org/wiki/Ingalaterrako_errege-erreginen_zerrenda>,
+                    <http://fr.wikipedia.org/wiki/Liste_des_monarques_britanniques>,
+                    <http://it.wikipedia.org/wiki/Sovrani_del_Regno_Unito>,
+                    <http://pt.wikipedia.org/wiki/Anexo:Lista_de_monarcas_britânicos>,
+                    <http://ru.wikipedia.org/wiki/Список_монархов_Британских_островов>,
+                    wikisl:Seznam_britanskih_kraljev,
+                    <http://sr.wikipedia.org/wiki/Списак_британских_монарха> ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T15:55:35.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022878.0 ;
+                xlime:hasSubittleText """Aber ein Taxi zur Königin
+ist erlaubt!
+Na gut.
+Da wird die Königin aber staunen.
+Kalli möchte ein Taxi sein.
+Und schwups ...
+ist Kalli ein Kalli-Taxi.
+Das ist ja Hasso,
+der Hund von Kallis Nachbarn.
+Du siehst aus wie ein Taxi,
+aber du riechst wie ein Kalli!
+Ich bin Kalli-Taxi!
+Ich muss zu Opa Egbert!
+Wau!
+*Autos hupen*
+Nun fahr doch mal, manno!
+Typisch Taxi!
+Bin schon weg! Komm, Hasso!""" ;
+                xlime:hasZattooCID "rbb" ] .
+}
+
+{
+    <http://zattoo.com/processed/113684536> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:03:31+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:03:27.490958+00:00"^^xsd:dateTime ] .
+}
+
+
+<http://zattoo.com/processed/113684648> {
+    <http://zattoo.com/program/113684648/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasAnnotation [ rdfs:label "Nicole (Sängerin, 1964)" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity <http://de.wikipedia.org/wiki/Nicole_(Sängerin,_1964)>,
+                    <http://en.wikipedia.org/wiki/Nicole_(German_singer)>,
+                    wikies:Nicole_Hohloch,
+                    <http://fr.wikipedia.org/wiki/Nicole_Hohloch>,
+                    <http://it.wikipedia.org/wiki/Nicole_Hohloch>,
+                    <http://pt.wikipedia.org/wiki/Nicole_(cantora_alemã)>,
+                    <http://ru.wikipedia.org/wiki/Николь_(певица)> ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T16:02:47.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022986.0 ;
+                xlime:hasSubittleText """Was kostet das, was Nicole anhat.
+Das Hemd kostet ₠ 110.
+Die Hose kostet ₠ 79.
+Das ist aus Bio Baumwolle.
+Es ist biologische Seite, sagen wir.
+Es ist biologische Seide, sagen wir.
+Unsere Zielgruppe sind Menschen, die
+wissen wollen,
+woher die Sachen kommen.
+Die bewusst überlegen, wo sie was
+einkaufen.""" ;
+                xlime:hasZattooCID "orf-2" ] .
+}
+
+{
+    <http://zattoo.com/processed/113684648> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:04:07+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:04:03.350060+00:00"^^xsd:dateTime ] .
+}
+
+
+{
+    <http://zattoo.com/processed/113684536> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:04:17+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:04:13.154181+00:00"^^xsd:dateTime ] .
+}
+
+<http://zattoo.com/processed/113684536> {
+    <http://zattoo.com/program/113684536/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasAnnotation [ rdfs:label "Haushund" ;
+                xlime:hasConfidence 2.85e-01 ;
+                xlime:hasEntity wikide:Haushund,
+                    wikien:Dog,
+                    wikies:Canis_lupus_familiaris,
+                    <http://eu.wikipedia.org/wiki/Txakur>,
+                    <http://fr.wikipedia.org/wiki/Chien>,
+                    <http://hr.wikipedia.org/wiki/Domaći_pas>,
+                    <http://it.wikipedia.org/wiki/Canis_lupus_familiaris>,
+                    <http://pt.wikipedia.org/wiki/Canis_lupus_familiaris>,
+                    <http://ru.wikipedia.org/wiki/Собака>,
+                    wikisl:Domači_pes,
+                    <http://sr.wikipedia.org/wiki/Пас> ],
+            [ rdfs:label "Taxi" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Taxi,
+                    wikien:Taxicab,
+                    wikies:Taxi,
+                    <http://eu.wikipedia.org/wiki/Taxi>,
+                    <http://fr.wikipedia.org/wiki/Taxi>,
+                    <http://hr.wikipedia.org/wiki/Taksi>,
+                    <http://it.wikipedia.org/wiki/Taxi>,
+                    <http://pt.wikipedia.org/wiki/Táxi>,
+                    <http://ru.wikipedia.org/wiki/Такси>,
+                    wikisl:Taksi,
+                    <http://sr.wikipedia.org/wiki/Такси> ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T15:56:15.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022888.0 ;
+                xlime:hasSubittleText """Dürfen jetzt schon
+Hunde Taxi fahren?
+Was hast du gegen Hunde?
+So, Hasso.
+Jetzt warten wir auf Opa Egbert.
+*Warnsignal*
+Hallo, blaues Taxi.
+Sie dürfen hier nicht parken!
+Bitte fahren Sie weiter!
+Bin schon weg.
+Ich fahre einfach
+eine Runde um das Haus.
+Jetzt fehlt nur noch Opa Egbert.
+*Tatü-tata*
+Pfui, iih!
+So kann ich nicht
+zur Königin fahren!""" ;
+                xlime:hasZattooCID "rbb" ] .
+}
+
+
+<http://zattoo.com/processed/113684648> {
+    <http://zattoo.com/program/113684648/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T16:03:27.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022996.0 ;
+                xlime:hasSubittleText """Wer designt die Kleidungsstücke?
+Ein Design-Team in Salzburg.
+Wir legen viel Wert auf Details.
+Hier haben wir die Hosenträger
+eingebaut.
+Sie lassen Platz für Spielraum.
+Man kann nicht widerstehen, dass man
+daran anzieht.
+Vielen Dank.
+Du bist auch dein eigenes Model.
+Wer bestimmt, was passiert?""" ;
+                xlime:hasZattooCID "orf-2" ] .
+}
+
+{
+    <http://zattoo.com/processed/113684648> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:04:47+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:04:43.486193+00:00"^^xsd:dateTime ] .
+}
+
+
+<http://zattoo.com/processed/113684648> {
+    <http://zattoo.com/program/113684648/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasAnnotation [ rdfs:label "Herzen (Film)" ;
+                xlime:hasConfidence 5.17e-01 ;
+                xlime:hasEntity <http://de.wikipedia.org/wiki/Herzen_(Film)>,
+                    <http://en.wikipedia.org/wiki/Private_Fears_in_Public_Places_(film)>,
+                    wikies:Asuntos_privados_en_lugares_públicos,
+                    <http://fr.wikipedia.org/wiki/Cœurs>,
+                    <http://it.wikipedia.org/wiki/Cuori_(film)>,
+                    <http://pt.wikipedia.org/wiki/Cœurs>,
+                    <http://ru.wikipedia.org/wiki/Сердца_(фильм)> ],
+            [ rdfs:label "Stadt" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Stadt,
+                    wikien:City,
+                    wikies:Ciudad,
+                    <http://eu.wikipedia.org/wiki/Hiri>,
+                    <http://fr.wikipedia.org/wiki/Ville>,
+                    <http://hr.wikipedia.org/wiki/Grad>,
+                    <http://it.wikipedia.org/wiki/Città>,
+                    <http://pt.wikipedia.org/wiki/Cidade>,
+                    <http://ru.wikipedia.org/wiki/Город>,
+                    wikisl:Mesto,
+                    <http://sr.wikipedia.org/wiki/Град> ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T16:02:07.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022976.0 ;
+                xlime:hasSubittleText """Ja, im Herzen der Stadt.
+Dort kann man das kaufen.
+Oder im online-Shop.
+Auf Erdbär.eu findet man uns im
+Internet.
+Man findet dort sicher das richtige
+Kleidungsstück.
+Ist es auch leistbar?
+Unsere Sachen sind preiswert.
+Sie sind den Preis wert.
+Jetzt wieder elegante Mode von
+euch.""" ;
+                xlime:hasZattooCID "orf-2" ] .
+}
+
+{
+    <http://zattoo.com/processed/113684648> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:03:27+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:03:23.280305+00:00"^^xsd:dateTime ] .
+}
+
+
+<http://zattoo.com/processed/113684536> {
+    <http://zattoo.com/program/113684536/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasAnnotation [ rdfs:label "Taxi" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Taxi,
+                    wikien:Taxicab,
+                    wikies:Taxi,
+                    <http://eu.wikipedia.org/wiki/Taxi>,
+                    <http://fr.wikipedia.org/wiki/Taxi>,
+                    <http://hr.wikipedia.org/wiki/Taksi>,
+                    <http://it.wikipedia.org/wiki/Taxi>,
+                    <http://pt.wikipedia.org/wiki/Táxi>,
+                    <http://ru.wikipedia.org/wiki/Такси>,
+                    wikisl:Taksi,
+                    <http://sr.wikipedia.org/wiki/Такси> ],
+            [ rdfs:label "Liste der britischen Monarchen" ;
+                xlime:hasConfidence 1.21e-01 ;
+                xlime:hasEntity wikide:Liste_der_britischen_Monarchen,
+                    wikien:List_of_British_monarchs,
+                    <http://es.wikipedia.org/wiki/Anexo:Monarcas_británicos>,
+                    <http://eu.wikipedia.org/wiki/Ingalaterrako_errege-erreginen_zerrenda>,
+                    <http://fr.wikipedia.org/wiki/Liste_des_monarques_britanniques>,
+                    <http://it.wikipedia.org/wiki/Sovrani_del_Regno_Unito>,
+                    <http://pt.wikipedia.org/wiki/Anexo:Lista_de_monarcas_britânicos>,
+                    <http://ru.wikipedia.org/wiki/Список_монархов_Британских_островов>,
+                    wikisl:Seznam_britanskih_kraljev,
+                    <http://sr.wikipedia.org/wiki/Списак_британских_монарха> ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T15:55:35.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022878.0 ;
+                xlime:hasSubittleText """Aber ein Taxi zur Königin
+ist erlaubt!
+Na gut.
+Da wird die Königin aber staunen.
+Kalli möchte ein Taxi sein.
+Und schwups ...
+ist Kalli ein Kalli-Taxi.
+Das ist ja Hasso,
+der Hund von Kallis Nachbarn.
+Du siehst aus wie ein Taxi,
+aber du riechst wie ein Kalli!
+Ich bin Kalli-Taxi!
+Ich muss zu Opa Egbert!
+Wau!
+*Autos hupen*
+Nun fahr doch mal, manno!
+Typisch Taxi!
+Bin schon weg! Komm, Hasso!""" ;
+                xlime:hasZattooCID "rbb" ] .
+}
+
+{
+    <http://zattoo.com/processed/113684536> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:03:31+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:03:27.490958+00:00"^^xsd:dateTime ] .
+}
+
+<http://zattoo.com/processed/113684648> {
+    <http://zattoo.com/program/113684648/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasAnnotation [ rdfs:label "Nicole (Sängerin, 1964)" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity <http://de.wikipedia.org/wiki/Nicole_(Sängerin,_1964)>,
+                    <http://en.wikipedia.org/wiki/Nicole_(German_singer)>,
+                    wikies:Nicole_Hohloch,
+                    <http://fr.wikipedia.org/wiki/Nicole_Hohloch>,
+                    <http://it.wikipedia.org/wiki/Nicole_Hohloch>,
+                    <http://pt.wikipedia.org/wiki/Nicole_(cantora_alemã)>,
+                    <http://ru.wikipedia.org/wiki/Николь_(певица)> ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T16:02:47.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022986.0 ;
+                xlime:hasSubittleText """Was kostet das, was Nicole anhat.
+Das Hemd kostet ₠ 110.
+Die Hose kostet ₠ 79.
+Das ist aus Bio Baumwolle.
+Es ist biologische Seite, sagen wir.
+Es ist biologische Seide, sagen wir.
+Unsere Zielgruppe sind Menschen, die
+wissen wollen,
+woher die Sachen kommen.
+Die bewusst überlegen, wo sie was
+einkaufen.""" ;
+                xlime:hasZattooCID "orf-2" ] .
+}
+
+{
+    <http://zattoo.com/processed/113684648> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:04:07+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:04:03.350060+00:00"^^xsd:dateTime ] .
+}
+
+{
+    <http://zattoo.com/processed/113684536> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:04:17+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:04:13.154181+00:00"^^xsd:dateTime ] .
+}
+
+<http://zattoo.com/processed/113684536> {
+    <http://zattoo.com/program/113684536/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasAnnotation [ rdfs:label "Haushund" ;
+                xlime:hasConfidence 2.85e-01 ;
+                xlime:hasEntity wikide:Haushund,
+                    wikien:Dog,
+                    wikies:Canis_lupus_familiaris,
+                    <http://eu.wikipedia.org/wiki/Txakur>,
+                    <http://fr.wikipedia.org/wiki/Chien>,
+                    <http://hr.wikipedia.org/wiki/Domaći_pas>,
+                    <http://it.wikipedia.org/wiki/Canis_lupus_familiaris>,
+                    <http://pt.wikipedia.org/wiki/Canis_lupus_familiaris>,
+                    <http://ru.wikipedia.org/wiki/Собака>,
+                    wikisl:Domači_pes,
+                    <http://sr.wikipedia.org/wiki/Пас> ],
+            [ rdfs:label "Taxi" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Taxi,
+                    wikien:Taxicab,
+                    wikies:Taxi,
+                    <http://eu.wikipedia.org/wiki/Taxi>,
+                    <http://fr.wikipedia.org/wiki/Taxi>,
+                    <http://hr.wikipedia.org/wiki/Taksi>,
+                    <http://it.wikipedia.org/wiki/Taxi>,
+                    <http://pt.wikipedia.org/wiki/Táxi>,
+                    <http://ru.wikipedia.org/wiki/Такси>,
+                    wikisl:Taksi,
+                    <http://sr.wikipedia.org/wiki/Такси> ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T15:56:15.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022888.0 ;
+                xlime:hasSubittleText """Dürfen jetzt schon
+Hunde Taxi fahren?
+Was hast du gegen Hunde?
+So, Hasso.
+Jetzt warten wir auf Opa Egbert.
+*Warnsignal*
+Hallo, blaues Taxi.
+Sie dürfen hier nicht parken!
+Bitte fahren Sie weiter!
+Bin schon weg.
+Ich fahre einfach
+eine Runde um das Haus.
+Jetzt fehlt nur noch Opa Egbert.
+*Tatü-tata*
+Pfui, iih!
+So kann ich nicht
+zur Königin fahren!""" ;
+                xlime:hasZattooCID "rbb" ] .
+}
+
+<http://zattoo.com/processed/113684648> {
+    <http://zattoo.com/program/113684648/subtitles> a ma:SubtitleTrack ;
+        ma:hasLanguage [ rdfs:label "de" ] ;
+        xlime:hasSubtitles [ xlime:hasStartTime "2016-06-13T16:03:27.500000+00:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 98022996.0 ;
+                xlime:hasSubittleText """Wer designt die Kleidungsstücke?
+Ein Design-Team in Salzburg.
+Wir legen viel Wert auf Details.
+Hier haben wir die Hosenträger
+eingebaut.
+Sie lassen Platz für Spielraum.
+Man kann nicht widerstehen, dass man
+daran anzieht.
+Vielen Dank.
+Du bist auch dein eigenes Model.
+Wer bestimmt, was passiert?""" ;
+                xlime:hasZattooCID "orf-2" ] .
+}
+
+{
+    <http://zattoo.com/processed/113684648> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-13T16:04:47+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-13T16:04:43.486193+00:00"^^xsd:dateTime ] .
+}
+
+

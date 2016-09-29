@@ -7,14 +7,13 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import kafka.message.MessageAndMetadata;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import kafka.message.MessageAndMetadata;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ListMultimap;
 import com.hp.hpl.jena.query.Dataset;
 
 import eu.xlime.bean.MediaItem;
@@ -53,7 +52,7 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 	protected long medItsInMessages = 0;
 	
 	/**
-	 * The number of the {@link XLiMeResource}s read, classified by their type
+	 * The number of the {@link XLiMeResource}s read (from Kafka messages), classified by their type
 	 */
 	private Map<Class<? extends XLiMeResource>, Long> resourcesRead = new HashMap<>();
 

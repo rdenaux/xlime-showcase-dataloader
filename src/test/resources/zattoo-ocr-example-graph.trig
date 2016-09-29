@@ -1,0 +1,37 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> . 
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ma: <http://www.w3.org/ns/ma-ont#> .
+@prefix xlime: <http://xlime-project.org/vocab/> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix sioc:  <http://rdfs.org/sioc/ns#> .
+@prefix prov:  <http://ww.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> . 
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ma: <http://www.w3.org/ns/ma-ont#> .
+@prefix xlime: <http://xlime-project.org/vocab/> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix sioc:  <http://rdfs.org/sioc/ns#> .
+@prefix prov:  <http://ww.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .{
+<http://unitn.it/ocr/0f28b734-c77d-4e95-be6c-9bbee6d0e761>
+          dcterms:title         "UNITN OCR" ;
+          prov:wasAttributedTo  <http://www.unitn.it> ;
+          prov:wasGeneratedBy   [ a                   prov:Activity ;
+                                  prov:endedAtTime    "2016-09-26 17:51:50.117271"^^xsd:date ;
+                                  prov:startedAtTime  "2016-09-26 17:51:54.117271"^^xsd:date
+                                ] .
+}
+
+# start of a new UNITN named graph / meta information above
+<http://unitn.it/ocr/0f28b734-c77d-4e95-be6c-9bbee6d0e761>
+{
+    <http://zattoo.com/program/116804985> ma:hasTrack
+<http://zattoo.com/program/116804985/video> .
+    <http://zattoo.com/program/116804985/video> a ma:VideoTrack ;
+    sioc:content """
+100290988.000000, Uh!, am he, I., TV-DUELL, ERSVEM, UND TRUMP VOR, CuNTON, r-L‘aﬂ—, Gl£|CHAUF, UMFRAGEN, KONTRAHEN‘TEN, 'ﬂngmn, Sin-uh:, Stephan, _'_, 7W—, N)”. _, 
+,duel servers ind trump voe canton chaff umbrage tetrahedron ten naming sin Stephan """ .
+}
