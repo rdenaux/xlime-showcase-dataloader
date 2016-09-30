@@ -7,6 +7,12 @@ Utilities for processing xLiMe data into a format suitable for the xLiMe Showcas
   	choose a suitable consumer kafka group and point to your mongoDB instance.
   * run `pushMediaItemsToMongo.sh` (or `.cmd` depending on your platform)
 
+#Indexing collections
+  * move `indexMongoCollections.sh` (or `.cmd` depending on your platform) to ${your mongo installation directory}/bin
+  * set up your mongo environment variables
+  * change value of `--dbpath` param with your mongo database directory if needed
+  * run the script
+
 # Kafka consumers
 ## Social-media to MongoDB loader
 
