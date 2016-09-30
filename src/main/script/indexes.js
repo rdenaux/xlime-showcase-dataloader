@@ -1,0 +1,11 @@
+db.MicroPostBean.createIndex({"created.timestamp":-1});
+db.MicroPostBean.createIndex({"content.full":"text" }, {language_override:"lang"});
+db.TVProgramBean.createIndex({"broadcastDate.timestamp":-1});
+db.TVProgramBean.createIndex({"description.full":"text", title:"text"},{weights:{"title":4}});
+db.NewsArticleBean.createIndex({"created.timestamp":-1});
+db.NewsArticleBean.createIndex({"content.full":"text", title: "text" },{ weights: { "title": 4 }, language_override: "lang"  }  );
+db.EntityAnnotation.createIndex({"entity._id":"hashed"});
+db.EntityAnnotation.createIndex({"resourceUrl":"hashed"});
+db.SubtitleSegment.createIndex({"partOf.partOf._id":"hashed"});
+db.SubtitleSegment.createIndex({"partOf.startTime.timestamp":-1});
+db.SubtitleSegment.createIndex({"text":"text"},{language_override:"lang"});
