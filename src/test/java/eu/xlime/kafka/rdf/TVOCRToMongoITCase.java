@@ -34,12 +34,14 @@ public class TVOCRToMongoITCase {
 		Optional<Dataset> ds = dsLoader.loadDataset(new File("src/test/resources/zattoo-ocr-example-graph.trig"), Lang.TRIG);
 		assertTrue(ds.isPresent());
 		
-		
-		boolean result = testObj.processDataset(mm, ds.get());
-		assertTrue(result);
+		testObj.processDataset(mm, ds.get());
+		testObj.processDataset(mm, ds.get());
+		testObj.processDataset(mm, ds.get());
 		String summary = testObj.generateSummary();
 		System.out.println("summary: " + summary);
 		assertNotNull(summary);
+		Summary sum = testObj.generateObjectSummary();
+		System.out.println(sum.toString());
 	}
 
 	private MessageAndMetadata<byte[], byte[]> mockKafkaMessage() {
