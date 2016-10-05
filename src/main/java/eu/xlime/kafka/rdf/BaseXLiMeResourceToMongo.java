@@ -92,7 +92,32 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 		
 		return sb.toString();
 	}
+	
+	protected Summary generateObjectSummary(){
+		Summary sum = new Summary();
+		sum.setConsumerId(getClass().getSimpleName() + "_" + instId);
+		sum.setProcessed(getMessagesProcessed());
+		sum.setAnnotations(summariseResourcesProcessedForObject());
+		return sum;
+	}
 
+	private Map<String,Long> summariseResourcesProcessedForObject() {
+		Set<Class<? extends XLiMeResource>> clzz = ImmutableSet.<Class<? extends XLiMeResource>>builder()
+				.addAll(resourcesRead.keySet()).addAll(resourcesStored.keySet()).build();
+		if (clzz.isEmpty()) return null;
+		Map<String,Long> annotations = new HashMap<String,Long>();
+		if (medItsInMessages > 0) {
+			annotations.put("mediaItemsInMessages", medItsInMessages);
+		}
+		for (Class<? extends XLiMeResource> clz: clzz) {
+			String tName = clz.getSimpleName();
+			annotations.put(String.format("%s_Read",tName),getResourcesRead(clz));
+			annotations.put(String.format("%s_Stored",tName),getResourcesStored(clz));
+			annotations.put(String.format("%s_InMongo", tName), tryGetMongoXLiMeResourceCount(clz));	
+		}
+		return annotations;
+	}
+	
 	/**
 	 * Subclasses should implement the extraction of the {@link XLiMeResource} beans here.
 	 * 
