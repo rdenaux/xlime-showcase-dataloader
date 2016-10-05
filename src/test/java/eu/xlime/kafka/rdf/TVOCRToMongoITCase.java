@@ -31,15 +31,19 @@ public class TVOCRToMongoITCase {
 		TVOCRToMongo testObj = new TVOCRToMongo(props);
 		MessageAndMetadata<byte[], byte[]> mm = mockKafkaMessage();
 		
-		Optional<Dataset> ds = dsLoader.loadDataset(new File("src/test/resources/zattoo-ocr-example-graph.trig"), Lang.TRIG);
-		assertTrue(ds.isPresent());
-		
-		
-		boolean result = testObj.processDataset(mm, ds.get());
-		assertTrue(result);
+		Optional<Dataset> ds1 = dsLoader.loadDataset(new File("src/test/resources/zattoo-ocr-example-graph.trig"), Lang.TRIG);
+		Optional<Dataset> ds2 = dsLoader.loadDataset(new File("src/test/resources/zattoo-ocr-example-graph.trig"), Lang.TRIG);
+		assertTrue(ds1.isPresent());
+		assertTrue(ds2.isPresent());
+		testObj.processDataset(mm, ds1.get());
+		testObj.processDataset(mm, ds2.get());
+
 		String summary = testObj.generateSummary();
 		System.out.println("summary: " + summary);
 		assertNotNull(summary);
+		Summary sum = testObj.generateObjectSummary();
+		if (sum.getAnnotations() == null) System.out.println("No xLiMe resources read or stored yet");
+		else System.out.println(sum.toString());
 	}
 
 	private MessageAndMetadata<byte[], byte[]> mockKafkaMessage() {
@@ -50,3 +54,4 @@ public class TVOCRToMongoITCase {
 	}
 	
 }
+>>>>>>> de52be2339a1f6ead34d5258fa56997ab24cebaa
