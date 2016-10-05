@@ -12,6 +12,10 @@
 			<directory>${basedir}/src/main/dist</directory>
 			<outputDirectory>/</outputDirectory>
 		</fileSet>
+		<fileSet>
+			<directory>${basedir}/src/main/script</directory>
+			<outputDirectory>/mongo-scripts/</outputDirectory>
+		</fileSet>
 	</fileSets>
 <!-- Doesn't work, not sure why. Need to specify version in both pom.xml and the frontend context specifier
 	<files>

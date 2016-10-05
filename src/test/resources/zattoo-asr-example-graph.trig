@@ -1,0 +1,36 @@
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix freebase: <http://rdf.freebase.com/ns/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix kdo: <http://kdo.render-project.eu/kdo#> .
+@prefix ma: <http://www.w3.org/ns/ma-ont#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix wikide: <http://de.wikipedia.org/wiki/> .
+@prefix wikien: <http://en.wikipedia.org/wiki/> .
+@prefix wikies: <http://es.wikipedia.org/wiki/> .
+@prefix wikisl: <http://sl.wikipedia.org/wiki/> .
+@prefix xlime: <http://xlime-project.org/vocab/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://zattoo.com/processed/-2> {
+    <http://zattoo.com/program/-2/audio> a ma:AudioTrack ;
+        ma:hasLanguage [ rdfs:label "yyy" ] ;
+        xlime:hasRecognisedSpeech [ xlime:hasASREngine <http://mediaspeech.com/webservice> ;
+                xlime:hasASRText "undisclosed assets that people not quite sure what there actually work . two Trillion dollars the total debt misled the public turning his back in is is concerned that 60 billionaire at the back and out with 15 billion black-and-white down by 14 billion dollar fund for one moment to the next you know that's . Right a saturn five is going to be damaging if it's if this level of that agreeing ... but I think people worried about it the actual Nature the assets bright so certainly you would you would go through the capital very possible of those arrests went bad pop on historical since the capital is high and as a typical liquidity is good so you wouldn't be working at putting the gases start to go and then you would" ;
+                xlime:hasStartTime "2016-10-03T11:13:31.500000+01:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 100436947.0 ;
+                xlime:hasZattooCID "cnn-international" ] .
+}
+
+{
+    <http://zattoo.com/processed/-2> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-10-03T10:15:18+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-10-03T10:15:14.401476+00:00"^^xsd:dateTime ] .
+}

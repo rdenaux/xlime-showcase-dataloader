@@ -5,10 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -40,9 +38,17 @@ import com.mongodb.BasicDBObject;
 import eu.xlime.bean.EntityAnnotation;
 import eu.xlime.dao.MongoXLiMeResourceStorer;
 import eu.xlime.summa.bean.UIEntity;
-import eu.xlime.util.KBEntityMapper;
 import eu.xlime.util.KBEntityUri;
 
+/**
+ * Provides methods for populating and assessing the {@link UIEntity} collection in Mongo 
+ * (relative to other collections such as the {@link EntityAnnotation}).
+ *
+ * TODO: either import all entities in a collection that doesn't need to be updated or write a task which 
+ * monitors new {@link EntityAnnotation}s and adds them as they're needed.
+ * 
+ * @author rdenaux
+ */
 public class AnnotatedUIEntityToMongo {
 
 	private static final Logger log = LoggerFactory.getLogger(AnnotatedUIEntityToMongo.class);
@@ -53,6 +59,13 @@ public class AnnotatedUIEntityToMongo {
 		mongoStorer = new MongoXLiMeResourceStorer(props);
 	}
 	
+	/**
+	 * Returns all the URLs of entities linked to {@link EntityAnnotation}s in the underlying mongo database.
+	 * 
+	 * I.e. all the knowledge base entities for which we should be able to return some {@link UIEntity}.
+	 * 
+	 * @return
+	 */
 	public Set<String> findEntityUrisInEntityAnnotations() {
 		JacksonDBCollection<EntityAnnotation, String> eaColl = mongoStorer.getDBCollection(EntityAnnotation.class);
 		BasicDBObject query = new BasicDBObject();
@@ -77,6 +90,15 @@ public class AnnotatedUIEntityToMongo {
 		return result;
 	}
 	
+	/**
+	 * Writes a list of entity urls to a given {@link File}, where each url is in its own line.
+	 * 
+	 * @see #readEntityUrisFromFile(File)
+	 * 
+	 * @param entUrls
+	 * @param f
+	 * @throws IOException
+	 */
 	public void writeEntityUrisToFile(Set<String> entUrls, File f) throws IOException {
 		if (!f.exists()) {
 			Files.createParentDirs(f);
@@ -95,11 +117,27 @@ public class AnnotatedUIEntityToMongo {
 		log.info(String.format("Wrote %s lines (from %s) to %s in %s ms.", cnt++, entUrls.size(), f.getAbsolutePath(), (System.currentTimeMillis() - start)));
 	}
 	
+	/**
+	 * Reads a list of entity urls from a given {@link File}, where each url is in its own line.
+	 * 
+	 * @see #writeEntityUrisToFile(Set, File)
+	 * @param f
+	 * @return
+	 * @throws IOException
+	 */
 	public List<String> readEntityUrisFromFile(File f) throws IOException {
 		if (!f.exists()) throw new IllegalArgumentException("File must exist " + f);
 		return Files.readLines(f, Charsets.UTF_8);
 	}
 	
+	/**
+	 * Maps a list of entity urls to their 'canonical' version. 
+	 * 
+	 * See {@link KBEntityUri} for more information on the canonicalisation process.
+	 * 
+	 * @param in
+	 * @return
+	 */
 	public Set<String> toCanonicalEntUris(Set<String> in) {
 		Set<String> result = new HashSet<>();
 		for (String entUrl: in) {
@@ -109,6 +147,18 @@ public class AnnotatedUIEntityToMongo {
 		return ImmutableSet.copyOf(result);
 	}
 	
+	/**
+	 * Execute a job (typically this will take a while) where a set of turtle (RDF) files will be iterated to update or insert
+	 * {@link UIEntity}s, specified by a set of entity urls, into mongo db.
+	 *   
+	 * @param entUrls a set of the entities which have been identified for upsertion
+	 * @param lang a language code, used to store {@link UIEntity}s in a specific language. Only labels for that langauge in the 
+	 * 	turtle files will be included in the {@link UIEntity}. 
+	 * @param dbpediaTtl zero or more turtle files (hopefully) containing relevant {@link UIEntity} information about the entities 
+	 * 	defined by <code>entUrls</code>.
+	 *  
+	 * @return
+	 */
 	public Map<File, EntityUpsertFromTTlSummary> loadToMongoFromDBpediaTtlFiles(Set<String> entUrls, String lang, File... dbpediaTtl) {
 		final long start = System.currentTimeMillis();
 		final Locale loc = new Locale(lang);
@@ -137,6 +187,12 @@ public class AnnotatedUIEntityToMongo {
 		return summs;
 	}
 
+	/**
+	 * Class for keeping track and summarising a job of upserting {@link UIEntity}s to a mongoDB instance.
+	 * 
+	 * @author rdenaux
+	 *
+	 */
 	public static class EntityUpsertFromTTlSummary {
 		public EntityUpsertFromTTlSummary(Set<String> set) {
 			missingEntUrls = set;
@@ -157,6 +213,15 @@ public class AnnotatedUIEntityToMongo {
 		}
 	}
 	
+	/**
+	 * Insert or update the {@link UIEntity} in the underlying mongo DB using the information found in the turtle file.
+	 *  
+	 * @param entUrls
+	 * @param locale
+	 * @param dbpttl a file containing sorted turtle RDF triples. For correct behaviour the file should contain one triple per line, 
+	 * 	and if the file contains multiple triples about the same subject, all the triples should be contiguous.  
+	 * @return an {@link EntityUpsertFromTTlSummary}, which summarises the job performed.
+	 */
 	private EntityUpsertFromTTlSummary updateUIEntitiesInMongo(final Set<String> entUrls, final Locale locale,
 			File dbpttl) {
 		final long start = System.currentTimeMillis();

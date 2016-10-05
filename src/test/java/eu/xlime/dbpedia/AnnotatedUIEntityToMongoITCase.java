@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.common.collect.ImmutableSet;
@@ -18,6 +19,7 @@ import eu.xlime.dbpedia.AnnotatedUIEntityToMongo.EntityUpsertFromTTlSummary;
 public class AnnotatedUIEntityToMongoITCase {
 
 	@Test
+	@Ignore("Load test mongo db and use that to test with expected results")
 	public void test_findEntityUrisInEntityAnnotations() throws Exception {
 		AnnotatedUIEntityToMongo testObj = new AnnotatedUIEntityToMongo(new Config().getCfgProps());
 		Set<String> result = testObj.findEntityUrisInEntityAnnotations();
@@ -30,6 +32,7 @@ public class AnnotatedUIEntityToMongoITCase {
 	}
 	
 	@Test
+	@Ignore("Create subset of dbpedia turtle files to test")
 	public void test_loadToMongoFromDBpediaTtlFiles() throws Exception {
 		AnnotatedUIEntityToMongo testObj = new AnnotatedUIEntityToMongo(new Config().getCfgProps());
 		List<String> entUrls = testObj.readEntityUrisFromFile(new File("target/entUrls.txt"));
@@ -45,6 +48,7 @@ public class AnnotatedUIEntityToMongoITCase {
 	
 	
 	@Test
+	@Ignore("use predefined lists of entUrls")
 	public void test_toCanonicalEntUris() throws Exception {
 		AnnotatedUIEntityToMongo testObj = new AnnotatedUIEntityToMongo(new Config().getCfgProps());
 		List<String> entUrls = testObj.readEntityUrisFromFile(new File("target/entUrls.txt"));

@@ -1,0 +1,482 @@
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix freebase: <http://rdf.freebase.com/ns/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix kdo: <http://kdo.render-project.eu/kdo#> .
+@prefix ma: <http://www.w3.org/ns/ma-ont#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix wikide: <http://de.wikipedia.org/wiki/> .
+@prefix wikien: <http://en.wikipedia.org/wiki/> .
+@prefix wikies: <http://es.wikipedia.org/wiki/> .
+@prefix wikisl: <http://sl.wikipedia.org/wiki/> .
+@prefix xlime: <http://xlime-project.org/vocab/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+{
+    <http://ijs.si/enryched/454914915> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-10T12:38:19+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-10T12:38:15.980463+00:00"^^xsd:dateTime ] .
+}
+
+<http://ijs.si/enryched/454914915> {
+    <http://ijs.si/article/454914915> a kdo:NewsArticle ;
+        dcterms:created "2016-06-10T12:38:07.125858"^^xsd:dateTime ;
+        dcterms:language "en" ;
+        dcterms:related <http://feeds.feedburner.com/~r/menews/news/~4/UWWvj4Zcqz8> ;
+        dcterms:source <http://www.manchestereveningnews.co.uk/news/greater-manchester-news/gmp-apologise-after-using-shocking-11454741?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%253A%2Bmenews%252Fnews%2B%2528News%2B-%2BManchester%2BEvening%2BNews%2B-%2BRSS%2BFeed%2529> ;
+        dcterms:title "GMP apologise after using shocking image of Hillsborough disaster in internal poster" ;
+        sioc:content """GMP apologise after using shocking image of Hillsborough disaster in internal poster 
+The image, which showed fans being crushed with the caption "Can you pick out a face in a crowd", was circulated within the force in a bid to recruit officers with a special ability to recognise individuals they had seen before
+GMP has apologised after using a shocking image of the Hillsborough disaster in an internal poster.
+It showed fans being crushed with the caption "Can you pick out a face in a crowd".
+It was circulated within the force in a bid to recruit officers with a special ability to recognise individuals that they had previously seen - often years later.
+But it triggered complaints from officers to senior management as it contained an image of the 1989 tragedy in which 96 Liverpool fans died.
+In April an inquest jury determined the 96 were unlawfully killed and a catalogue of failings by police and the ambulance services contributed to their deaths.
+Read: The 96 Liverpool fans who died in Hillsborough disaster were unlawfully killed, inquest jury concludes
+Read: Eamonn Holmes apologises after being accused of comparing United team bus attack to Hillsborough
+Assistant Chief Constable Robert Potts said: "On Wednesday 8 June 2016, it was brought to the attention of senior officers that a poster had been circulated around the force advertising for 'Super Recognisers'.
+"This is an initiative to identify members of staff who have a high ability to recognise individuals that they have previously seen, often years later.
+"This poster contained an image of the Hillsborough disaster in progress, a distressing image which was completely inappropriate for such use.
+"The poster, which was only ever circulated internally within the force, was immediately recalled and the offending image was removed within 90 minutes of its initial circulation.
+"The use of this image was not intended to offend but to demonstrate how 'Super Recognisers' can greatly assist on-going investigations.
+"The 'Super Recognisers' technique has been successfully used in a number of complex national investigations, to identify potential witnesses as well as suspects
+Read: Hillsborough inquests: Under-fire force appoints third former GMP officer as chief constable
+Read: New top officer at Hillsborough scandal police force offers to resign after facing probe over time at GMP
+"We acted swiftly to remove the offending image and limit the distress caused, however, I recognise that the use of this image was obviously inappropriate and I am deeply sorry for the upset and offence that this has caused."
+Following the circulation of poster to Greater Manchester Police officers and staff, Greater Manchester Mayor and Police and Crime Commissioner Tony Lloyd said:
+"The use of this image was wholly inappropriate and should never have happened. Senior GMP officers have rightly acted quickly to remove this poster from circulation and have apologised. I have also asked GMP to make contact with the families of the Hillsborough victims to apologise to them directly for any further distress this has caused them.
+"Hillsborough families have fought long and hard for justice, they don't need this as a reminder."
+It is understood the Hillsborough image was chosen for the poster as super recognisers had been used as part of the Hillsborough investigation. But GMP accept it was ill-judged.""" ;
+        sioc:topic "Arts_and_Entertainment",
+            "Business",
+            "Law",
+            "Law_Enforcement",
+            "Organizations",
+            "Photography",
+            "Shopping",
+            "Society",
+            "Stock" ;
+        xlime:hasAnnotation [ rdfs:label "Inquest" ;
+                xlime:hasConfidence 1.68e-01 ;
+                xlime:hasEntity wikide:Leichenschau,
+                    wikien:Inquest,
+                    <http://fr.wikipedia.org/wiki/Enquête_(common_law)>,
+                    <http://ru.wikipedia.org/wiki/Дознание> ],
+            [ rdfs:label "Sheffield Wednesday F.C." ;
+                xlime:hasConfidence 3.03e-01 ;
+                xlime:hasEntity wikide:Sheffield_Wednesday,
+                    <http://en.wikipedia.org/wiki/Sheffield_Wednesday_F.C.>,
+                    wikies:Sheffield_Wednesday_Football_Club,
+                    <http://fr.wikipedia.org/wiki/Sheffield_Wednesday_Football_Club>,
+                    <http://it.wikipedia.org/wiki/Sheffield_Wednesday_Football_Club>,
+                    <http://pt.wikipedia.org/wiki/Sheffield_Wednesday_Football_Club>,
+                    <http://ru.wikipedia.org/wiki/Шеффилд_Уэнсдей>,
+                    <http://sr.wikipedia.org/wiki/ФК_Шефилд_венсдеј> ],
+            [ rdfs:label "Hillsborough disaster" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Hillsborough-Katastrophe,
+                    wikien:Hillsborough_disaster,
+                    wikies:Tragedia_de_Hillsborough,
+                    <http://fr.wikipedia.org/wiki/Tragédie_de_Hillsborough>,
+                    <http://it.wikipedia.org/wiki/Strage_di_Hillsborough>,
+                    <http://pt.wikipedia.org/wiki/Desastre_de_Hillsborough>,
+                    <http://ru.wikipedia.org/wiki/Трагедия_на_«Хиллсборо»>,
+                    <http://sr.wikipedia.org/wiki/Трагедија_на_Хилсбороу> ],
+            [ rdfs:label "Chief constable" ;
+                xlime:hasConfidence 5.82e-01 ;
+                xlime:hasEntity wikien:Chief_constable ],
+            [ rdfs:label "Tony Lloyd" ;
+                xlime:hasConfidence 3.57e-01 ;
+                xlime:hasEntity wikien:Tony_Lloyd ],
+            [ rdfs:label "Inquest" ;
+                xlime:hasConfidence 1.08e-01 ;
+                xlime:hasEntity wikide:Leichenschau,
+                    wikien:Inquest,
+                    <http://fr.wikipedia.org/wiki/Enquête_(common_law)>,
+                    <http://ru.wikipedia.org/wiki/Дознание> ],
+            [ rdfs:label "Hillsborough Stadium" ;
+                xlime:hasConfidence 1.64e-01 ;
+                xlime:hasEntity wikide:Hillsborough_Stadium,
+                    wikien:Hillsborough_Stadium,
+                    wikies:Estadio_Hillsborough,
+                    <http://eu.wikipedia.org/wiki/Hillsborough_estadioa>,
+                    <http://fr.wikipedia.org/wiki/Hillsborough_(stade)>,
+                    <http://it.wikipedia.org/wiki/Hillsborough_Stadium>,
+                    <http://pt.wikipedia.org/wiki/Estádio_Hillsborough>,
+                    <http://ru.wikipedia.org/wiki/Хиллсборо_(стадион)>,
+                    <http://sr.wikipedia.org/wiki/Стадион_Хилсборо> ],
+            [ rdfs:label "Greater Manchester Police" ;
+                xlime:hasConfidence 4.83e-01 ;
+                xlime:hasEntity wikien:Greater_Manchester_Police ],
+            [ rdfs:label "Eamonn Holmes" ;
+                xlime:hasEntity freebase:m.07k10c ],
+            [ rdfs:label "Police" ;
+                xlime:hasConfidence 1.27e-01 ;
+                xlime:hasEntity wikide:Polizei,
+                    wikien:Police,
+                    wikies:Policía,
+                    <http://eu.wikipedia.org/wiki/Polizia>,
+                    <http://fr.wikipedia.org/wiki/Police_(institution)>,
+                    <http://hr.wikipedia.org/wiki/Policija>,
+                    <http://it.wikipedia.org/wiki/Polizia>,
+                    <http://pt.wikipedia.org/wiki/Polícia>,
+                    <http://ru.wikipedia.org/wiki/Полиция>,
+                    wikisl:Policija,
+                    <http://sr.wikipedia.org/wiki/Полиција> ],
+            [ rdfs:label "Eamonn Holmes" ;
+                xlime:hasConfidence 2.34e-01 ;
+                xlime:hasEntity wikien:Eamonn_Holmes ],
+            [ rdfs:label "Assistant chief constable" ;
+                xlime:hasConfidence 2.12e-01 ;
+                xlime:hasEntity wikien:Assistant_chief_constable ],
+            [ rdfs:label "Kopites" ;
+                xlime:hasConfidence 1.73e-01 ;
+                xlime:hasEntity wikien:Kopites ],
+            [ rdfs:label "Police and crime commissioner" ;
+                xlime:hasConfidence 3.34e-01 ;
+                xlime:hasEntity wikien:Police_and_crime_commissioner ],
+            [ rdfs:label "Greater Manchester" ;
+                xlime:hasConfidence 4.48e-01 ;
+                xlime:hasEntity wikide:Greater_Manchester,
+                    wikien:Greater_Manchester,
+                    wikies:Gran_Mánchester,
+                    <http://eu.wikipedia.org/wiki/Manchester_Handia>,
+                    <http://fr.wikipedia.org/wiki/Grand_Manchester>,
+                    <http://it.wikipedia.org/wiki/Greater_Manchester>,
+                    <http://pt.wikipedia.org/wiki/Grande_Manchester>,
+                    <http://ru.wikipedia.org/wiki/Большой_Манчестер> ],
+            [ rdfs:label "Advertising" ;
+                xlime:hasConfidence 2.13e-01 ;
+                xlime:hasEntity wikide:Werbung,
+                    wikien:Advertising,
+                    wikies:Publicidad,
+                    <http://eu.wikipedia.org/wiki/Publizitate>,
+                    <http://fr.wikipedia.org/wiki/Publicité>,
+                    <http://hr.wikipedia.org/wiki/Oglašavanje>,
+                    <http://it.wikipedia.org/wiki/Pubblicità>,
+                    <http://pt.wikipedia.org/wiki/Publicidade>,
+                    <http://ru.wikipedia.org/wiki/Реклама>,
+                    wikisl:Oglaševanje,
+                    <http://sr.wikipedia.org/wiki/Реклама> ],
+            [ rdfs:label "Greater Manchester Police" ;
+                xlime:hasEntity freebase:m.0863hf ],
+            [ rdfs:label "Crime" ;
+                xlime:hasEntity freebase:m.01rbb ] .
+}
+
+
+{
+    <http://ijs.si/enryched/454914915> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-10T12:38:19+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-10T12:38:15.980463+00:00"^^xsd:dateTime ] .
+}
+
+<http://ijs.si/enryched/454914915> {
+    <http://ijs.si/article/454914915> a kdo:NewsArticle ;
+        dcterms:created "2016-06-10T12:38:07.125858"^^xsd:dateTime ;
+        dcterms:language "en" ;
+        dcterms:related <http://feeds.feedburner.com/~r/menews/news/~4/UWWvj4Zcqz8> ;
+        dcterms:source <http://www.manchestereveningnews.co.uk/news/greater-manchester-news/gmp-apologise-after-using-shocking-11454741?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%253A%2Bmenews%252Fnews%2B%2528News%2B-%2BManchester%2BEvening%2BNews%2B-%2BRSS%2BFeed%2529> ;
+        dcterms:title "GMP apologise after using shocking image of Hillsborough disaster in internal poster" ;
+        sioc:content """GMP apologise after using shocking image of Hillsborough disaster in internal poster 
+The image, which showed fans being crushed with the caption "Can you pick out a face in a crowd", was circulated within the force in a bid to recruit officers with a special ability to recognise individuals they had seen before
+GMP has apologised after using a shocking image of the Hillsborough disaster in an internal poster.
+It showed fans being crushed with the caption "Can you pick out a face in a crowd".
+It was circulated within the force in a bid to recruit officers with a special ability to recognise individuals that they had previously seen - often years later.
+But it triggered complaints from officers to senior management as it contained an image of the 1989 tragedy in which 96 Liverpool fans died.
+In April an inquest jury determined the 96 were unlawfully killed and a catalogue of failings by police and the ambulance services contributed to their deaths.
+Read: The 96 Liverpool fans who died in Hillsborough disaster were unlawfully killed, inquest jury concludes
+Read: Eamonn Holmes apologises after being accused of comparing United team bus attack to Hillsborough
+Assistant Chief Constable Robert Potts said: "On Wednesday 8 June 2016, it was brought to the attention of senior officers that a poster had been circulated around the force advertising for 'Super Recognisers'.
+"This is an initiative to identify members of staff who have a high ability to recognise individuals that they have previously seen, often years later.
+"This poster contained an image of the Hillsborough disaster in progress, a distressing image which was completely inappropriate for such use.
+"The poster, which was only ever circulated internally within the force, was immediately recalled and the offending image was removed within 90 minutes of its initial circulation.
+"The use of this image was not intended to offend but to demonstrate how 'Super Recognisers' can greatly assist on-going investigations.
+"The 'Super Recognisers' technique has been successfully used in a number of complex national investigations, to identify potential witnesses as well as suspects
+Read: Hillsborough inquests: Under-fire force appoints third former GMP officer as chief constable
+Read: New top officer at Hillsborough scandal police force offers to resign after facing probe over time at GMP
+"We acted swiftly to remove the offending image and limit the distress caused, however, I recognise that the use of this image was obviously inappropriate and I am deeply sorry for the upset and offence that this has caused."
+Following the circulation of poster to Greater Manchester Police officers and staff, Greater Manchester Mayor and Police and Crime Commissioner Tony Lloyd said:
+"The use of this image was wholly inappropriate and should never have happened. Senior GMP officers have rightly acted quickly to remove this poster from circulation and have apologised. I have also asked GMP to make contact with the families of the Hillsborough victims to apologise to them directly for any further distress this has caused them.
+"Hillsborough families have fought long and hard for justice, they don't need this as a reminder."
+It is understood the Hillsborough image was chosen for the poster as super recognisers had been used as part of the Hillsborough investigation. But GMP accept it was ill-judged.""" ;
+        sioc:topic "Arts_and_Entertainment",
+            "Business",
+            "Law",
+            "Law_Enforcement",
+            "Organizations",
+            "Photography",
+            "Shopping",
+            "Society",
+            "Stock" ;
+        xlime:hasAnnotation [ rdfs:label "Inquest" ;
+                xlime:hasConfidence 1.68e-01 ;
+                xlime:hasEntity wikide:Leichenschau,
+                    wikien:Inquest,
+                    <http://fr.wikipedia.org/wiki/Enquête_(common_law)>,
+                    <http://ru.wikipedia.org/wiki/Дознание> ],
+            [ rdfs:label "Sheffield Wednesday F.C." ;
+                xlime:hasConfidence 3.03e-01 ;
+                xlime:hasEntity wikide:Sheffield_Wednesday,
+                    <http://en.wikipedia.org/wiki/Sheffield_Wednesday_F.C.>,
+                    wikies:Sheffield_Wednesday_Football_Club,
+                    <http://fr.wikipedia.org/wiki/Sheffield_Wednesday_Football_Club>,
+                    <http://it.wikipedia.org/wiki/Sheffield_Wednesday_Football_Club>,
+                    <http://pt.wikipedia.org/wiki/Sheffield_Wednesday_Football_Club>,
+                    <http://ru.wikipedia.org/wiki/Шеффилд_Уэнсдей>,
+                    <http://sr.wikipedia.org/wiki/ФК_Шефилд_венсдеј> ],
+            [ rdfs:label "Hillsborough disaster" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Hillsborough-Katastrophe,
+                    wikien:Hillsborough_disaster,
+                    wikies:Tragedia_de_Hillsborough,
+                    <http://fr.wikipedia.org/wiki/Tragédie_de_Hillsborough>,
+                    <http://it.wikipedia.org/wiki/Strage_di_Hillsborough>,
+                    <http://pt.wikipedia.org/wiki/Desastre_de_Hillsborough>,
+                    <http://ru.wikipedia.org/wiki/Трагедия_на_«Хиллсборо»>,
+                    <http://sr.wikipedia.org/wiki/Трагедија_на_Хилсбороу> ],
+            [ rdfs:label "Chief constable" ;
+                xlime:hasConfidence 5.82e-01 ;
+                xlime:hasEntity wikien:Chief_constable ],
+            [ rdfs:label "Tony Lloyd" ;
+                xlime:hasConfidence 3.57e-01 ;
+                xlime:hasEntity wikien:Tony_Lloyd ],
+            [ rdfs:label "Inquest" ;
+                xlime:hasConfidence 1.08e-01 ;
+                xlime:hasEntity wikide:Leichenschau,
+                    wikien:Inquest,
+                    <http://fr.wikipedia.org/wiki/Enquête_(common_law)>,
+                    <http://ru.wikipedia.org/wiki/Дознание> ],
+            [ rdfs:label "Hillsborough Stadium" ;
+                xlime:hasConfidence 1.64e-01 ;
+                xlime:hasEntity wikide:Hillsborough_Stadium,
+                    wikien:Hillsborough_Stadium,
+                    wikies:Estadio_Hillsborough,
+                    <http://eu.wikipedia.org/wiki/Hillsborough_estadioa>,
+                    <http://fr.wikipedia.org/wiki/Hillsborough_(stade)>,
+                    <http://it.wikipedia.org/wiki/Hillsborough_Stadium>,
+                    <http://pt.wikipedia.org/wiki/Estádio_Hillsborough>,
+                    <http://ru.wikipedia.org/wiki/Хиллсборо_(стадион)>,
+                    <http://sr.wikipedia.org/wiki/Стадион_Хилсборо> ],
+            [ rdfs:label "Greater Manchester Police" ;
+                xlime:hasConfidence 4.83e-01 ;
+                xlime:hasEntity wikien:Greater_Manchester_Police ],
+            [ rdfs:label "Eamonn Holmes" ;
+                xlime:hasEntity freebase:m.07k10c ],
+            [ rdfs:label "Police" ;
+                xlime:hasConfidence 1.27e-01 ;
+                xlime:hasEntity wikide:Polizei,
+                    wikien:Police,
+                    wikies:Policía,
+                    <http://eu.wikipedia.org/wiki/Polizia>,
+                    <http://fr.wikipedia.org/wiki/Police_(institution)>,
+                    <http://hr.wikipedia.org/wiki/Policija>,
+                    <http://it.wikipedia.org/wiki/Polizia>,
+                    <http://pt.wikipedia.org/wiki/Polícia>,
+                    <http://ru.wikipedia.org/wiki/Полиция>,
+                    wikisl:Policija,
+                    <http://sr.wikipedia.org/wiki/Полиција> ],
+            [ rdfs:label "Eamonn Holmes" ;
+                xlime:hasConfidence 2.34e-01 ;
+                xlime:hasEntity wikien:Eamonn_Holmes ],
+            [ rdfs:label "Assistant chief constable" ;
+                xlime:hasConfidence 2.12e-01 ;
+                xlime:hasEntity wikien:Assistant_chief_constable ],
+            [ rdfs:label "Kopites" ;
+                xlime:hasConfidence 1.73e-01 ;
+                xlime:hasEntity wikien:Kopites ],
+            [ rdfs:label "Police and crime commissioner" ;
+                xlime:hasConfidence 3.34e-01 ;
+                xlime:hasEntity wikien:Police_and_crime_commissioner ],
+            [ rdfs:label "Greater Manchester" ;
+                xlime:hasConfidence 4.48e-01 ;
+                xlime:hasEntity wikide:Greater_Manchester,
+                    wikien:Greater_Manchester,
+                    wikies:Gran_Mánchester,
+                    <http://eu.wikipedia.org/wiki/Manchester_Handia>,
+                    <http://fr.wikipedia.org/wiki/Grand_Manchester>,
+                    <http://it.wikipedia.org/wiki/Greater_Manchester>,
+                    <http://pt.wikipedia.org/wiki/Grande_Manchester>,
+                    <http://ru.wikipedia.org/wiki/Большой_Манчестер> ],
+            [ rdfs:label "Advertising" ;
+                xlime:hasConfidence 2.13e-01 ;
+                xlime:hasEntity wikide:Werbung,
+                    wikien:Advertising,
+                    wikies:Publicidad,
+                    <http://eu.wikipedia.org/wiki/Publizitate>,
+                    <http://fr.wikipedia.org/wiki/Publicité>,
+                    <http://hr.wikipedia.org/wiki/Oglašavanje>,
+                    <http://it.wikipedia.org/wiki/Pubblicità>,
+                    <http://pt.wikipedia.org/wiki/Publicidade>,
+                    <http://ru.wikipedia.org/wiki/Реклама>,
+                    wikisl:Oglaševanje,
+                    <http://sr.wikipedia.org/wiki/Реклама> ],
+            [ rdfs:label "Greater Manchester Police" ;
+                xlime:hasEntity freebase:m.0863hf ],
+            [ rdfs:label "Crime" ;
+                xlime:hasEntity freebase:m.01rbb ] .
+}
+
+
+{
+    <http://ijs.si/enryched/454914915> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-06-10T12:38:19+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-06-10T12:38:15.980463+00:00"^^xsd:dateTime ] .
+}
+
+<http://ijs.si/enryched/454914915> {
+    <http://ijs.si/article/454914915> a kdo:NewsArticle ;
+        dcterms:created "2016-06-10T12:38:07.125858"^^xsd:dateTime ;
+        dcterms:language "en" ;
+        dcterms:related <http://feeds.feedburner.com/~r/menews/news/~4/UWWvj4Zcqz8> ;
+        dcterms:source <http://www.manchestereveningnews.co.uk/news/greater-manchester-news/gmp-apologise-after-using-shocking-11454741?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%253A%2Bmenews%252Fnews%2B%2528News%2B-%2BManchester%2BEvening%2BNews%2B-%2BRSS%2BFeed%2529> ;
+        dcterms:title "GMP apologise after using shocking image of Hillsborough disaster in internal poster" ;
+        sioc:content """GMP apologise after using shocking image of Hillsborough disaster in internal poster 
+The image, which showed fans being crushed with the caption "Can you pick out a face in a crowd", was circulated within the force in a bid to recruit officers with a special ability to recognise individuals they had seen before
+GMP has apologised after using a shocking image of the Hillsborough disaster in an internal poster.
+It showed fans being crushed with the caption "Can you pick out a face in a crowd".
+It was circulated within the force in a bid to recruit officers with a special ability to recognise individuals that they had previously seen - often years later.
+But it triggered complaints from officers to senior management as it contained an image of the 1989 tragedy in which 96 Liverpool fans died.
+In April an inquest jury determined the 96 were unlawfully killed and a catalogue of failings by police and the ambulance services contributed to their deaths.
+Read: The 96 Liverpool fans who died in Hillsborough disaster were unlawfully killed, inquest jury concludes
+Read: Eamonn Holmes apologises after being accused of comparing United team bus attack to Hillsborough
+Assistant Chief Constable Robert Potts said: "On Wednesday 8 June 2016, it was brought to the attention of senior officers that a poster had been circulated around the force advertising for 'Super Recognisers'.
+"This is an initiative to identify members of staff who have a high ability to recognise individuals that they have previously seen, often years later.
+"This poster contained an image of the Hillsborough disaster in progress, a distressing image which was completely inappropriate for such use.
+"The poster, which was only ever circulated internally within the force, was immediately recalled and the offending image was removed within 90 minutes of its initial circulation.
+"The use of this image was not intended to offend but to demonstrate how 'Super Recognisers' can greatly assist on-going investigations.
+"The 'Super Recognisers' technique has been successfully used in a number of complex national investigations, to identify potential witnesses as well as suspects
+Read: Hillsborough inquests: Under-fire force appoints third former GMP officer as chief constable
+Read: New top officer at Hillsborough scandal police force offers to resign after facing probe over time at GMP
+"We acted swiftly to remove the offending image and limit the distress caused, however, I recognise that the use of this image was obviously inappropriate and I am deeply sorry for the upset and offence that this has caused."
+Following the circulation of poster to Greater Manchester Police officers and staff, Greater Manchester Mayor and Police and Crime Commissioner Tony Lloyd said:
+"The use of this image was wholly inappropriate and should never have happened. Senior GMP officers have rightly acted quickly to remove this poster from circulation and have apologised. I have also asked GMP to make contact with the families of the Hillsborough victims to apologise to them directly for any further distress this has caused them.
+"Hillsborough families have fought long and hard for justice, they don't need this as a reminder."
+It is understood the Hillsborough image was chosen for the poster as super recognisers had been used as part of the Hillsborough investigation. But GMP accept it was ill-judged.""" ;
+        sioc:topic "Arts_and_Entertainment",
+            "Business",
+            "Law",
+            "Law_Enforcement",
+            "Organizations",
+            "Photography",
+            "Shopping",
+            "Society",
+            "Stock" ;
+        xlime:hasAnnotation [ rdfs:label "Inquest" ;
+                xlime:hasConfidence 1.68e-01 ;
+                xlime:hasEntity wikide:Leichenschau,
+                    wikien:Inquest,
+                    <http://fr.wikipedia.org/wiki/Enquête_(common_law)>,
+                    <http://ru.wikipedia.org/wiki/Дознание> ],
+            [ rdfs:label "Sheffield Wednesday F.C." ;
+                xlime:hasConfidence 3.03e-01 ;
+                xlime:hasEntity wikide:Sheffield_Wednesday,
+                    <http://en.wikipedia.org/wiki/Sheffield_Wednesday_F.C.>,
+                    wikies:Sheffield_Wednesday_Football_Club,
+                    <http://fr.wikipedia.org/wiki/Sheffield_Wednesday_Football_Club>,
+                    <http://it.wikipedia.org/wiki/Sheffield_Wednesday_Football_Club>,
+                    <http://pt.wikipedia.org/wiki/Sheffield_Wednesday_Football_Club>,
+                    <http://ru.wikipedia.org/wiki/Шеффилд_Уэнсдей>,
+                    <http://sr.wikipedia.org/wiki/ФК_Шефилд_венсдеј> ],
+            [ rdfs:label "Hillsborough disaster" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Hillsborough-Katastrophe,
+                    wikien:Hillsborough_disaster,
+                    wikies:Tragedia_de_Hillsborough,
+                    <http://fr.wikipedia.org/wiki/Tragédie_de_Hillsborough>,
+                    <http://it.wikipedia.org/wiki/Strage_di_Hillsborough>,
+                    <http://pt.wikipedia.org/wiki/Desastre_de_Hillsborough>,
+                    <http://ru.wikipedia.org/wiki/Трагедия_на_«Хиллсборо»>,
+                    <http://sr.wikipedia.org/wiki/Трагедија_на_Хилсбороу> ],
+            [ rdfs:label "Chief constable" ;
+                xlime:hasConfidence 5.82e-01 ;
+                xlime:hasEntity wikien:Chief_constable ],
+            [ rdfs:label "Tony Lloyd" ;
+                xlime:hasConfidence 3.57e-01 ;
+                xlime:hasEntity wikien:Tony_Lloyd ],
+            [ rdfs:label "Inquest" ;
+                xlime:hasConfidence 1.08e-01 ;
+                xlime:hasEntity wikide:Leichenschau,
+                    wikien:Inquest,
+                    <http://fr.wikipedia.org/wiki/Enquête_(common_law)>,
+                    <http://ru.wikipedia.org/wiki/Дознание> ],
+            [ rdfs:label "Hillsborough Stadium" ;
+                xlime:hasConfidence 1.64e-01 ;
+                xlime:hasEntity wikide:Hillsborough_Stadium,
+                    wikien:Hillsborough_Stadium,
+                    wikies:Estadio_Hillsborough,
+                    <http://eu.wikipedia.org/wiki/Hillsborough_estadioa>,
+                    <http://fr.wikipedia.org/wiki/Hillsborough_(stade)>,
+                    <http://it.wikipedia.org/wiki/Hillsborough_Stadium>,
+                    <http://pt.wikipedia.org/wiki/Estádio_Hillsborough>,
+                    <http://ru.wikipedia.org/wiki/Хиллсборо_(стадион)>,
+                    <http://sr.wikipedia.org/wiki/Стадион_Хилсборо> ],
+            [ rdfs:label "Greater Manchester Police" ;
+                xlime:hasConfidence 4.83e-01 ;
+                xlime:hasEntity wikien:Greater_Manchester_Police ],
+            [ rdfs:label "Eamonn Holmes" ;
+                xlime:hasEntity freebase:m.07k10c ],
+            [ rdfs:label "Police" ;
+                xlime:hasConfidence 1.27e-01 ;
+                xlime:hasEntity wikide:Polizei,
+                    wikien:Police,
+                    wikies:Policía,
+                    <http://eu.wikipedia.org/wiki/Polizia>,
+                    <http://fr.wikipedia.org/wiki/Police_(institution)>,
+                    <http://hr.wikipedia.org/wiki/Policija>,
+                    <http://it.wikipedia.org/wiki/Polizia>,
+                    <http://pt.wikipedia.org/wiki/Polícia>,
+                    <http://ru.wikipedia.org/wiki/Полиция>,
+                    wikisl:Policija,
+                    <http://sr.wikipedia.org/wiki/Полиција> ],
+            [ rdfs:label "Eamonn Holmes" ;
+                xlime:hasConfidence 2.34e-01 ;
+                xlime:hasEntity wikien:Eamonn_Holmes ],
+            [ rdfs:label "Assistant chief constable" ;
+                xlime:hasConfidence 2.12e-01 ;
+                xlime:hasEntity wikien:Assistant_chief_constable ],
+            [ rdfs:label "Kopites" ;
+                xlime:hasConfidence 1.73e-01 ;
+                xlime:hasEntity wikien:Kopites ],
+            [ rdfs:label "Police and crime commissioner" ;
+                xlime:hasConfidence 3.34e-01 ;
+                xlime:hasEntity wikien:Police_and_crime_commissioner ],
+            [ rdfs:label "Greater Manchester" ;
+                xlime:hasConfidence 4.48e-01 ;
+                xlime:hasEntity wikide:Greater_Manchester,
+                    wikien:Greater_Manchester,
+                    wikies:Gran_Mánchester,
+                    <http://eu.wikipedia.org/wiki/Manchester_Handia>,
+                    <http://fr.wikipedia.org/wiki/Grand_Manchester>,
+                    <http://it.wikipedia.org/wiki/Greater_Manchester>,
+                    <http://pt.wikipedia.org/wiki/Grande_Manchester>,
+                    <http://ru.wikipedia.org/wiki/Большой_Манчестер> ],
+            [ rdfs:label "Advertising" ;
+                xlime:hasConfidence 2.13e-01 ;
+                xlime:hasEntity wikide:Werbung,
+                    wikien:Advertising,
+                    wikies:Publicidad,
+                    <http://eu.wikipedia.org/wiki/Publizitate>,
+                    <http://fr.wikipedia.org/wiki/Publicité>,
+                    <http://hr.wikipedia.org/wiki/Oglašavanje>,
+                    <http://it.wikipedia.org/wiki/Pubblicità>,
+                    <http://pt.wikipedia.org/wiki/Publicidade>,
+                    <http://ru.wikipedia.org/wiki/Реклама>,
+                    wikisl:Oglaševanje,
+                    <http://sr.wikipedia.org/wiki/Реклама> ],
+            [ rdfs:label "Greater Manchester Police" ;
+                xlime:hasEntity freebase:m.0863hf ],
+            [ rdfs:label "Crime" ;
+                xlime:hasEntity freebase:m.01rbb ] .
+}

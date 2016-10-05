@@ -45,7 +45,9 @@ public class NewsfeedToMongo extends BaseXLiMeResourceToMongo {
 			List<MediaItem> newsArts = extractXLiMeMediaItems(mm, dataset, NewsArticleBean.class); 
 			builder.addAll(newsArts);
 			for (MediaItem mit: newsArts) {
-				builder.addAll(extractNewsArticleEntityAnnotations(dataset, mit.getUrl()));
+				List<EntityAnnotation> entAnns = extractNewsArticleEntityAnnotations(dataset, mit.getUrl());
+//				log.info("Found entAnns: " + entAnns);
+				builder.addAll(entAnns);
 			}
 			//TODO: add activities
 			//TODO: add topic annotations?
@@ -57,8 +59,8 @@ public class NewsfeedToMongo extends BaseXLiMeResourceToMongo {
 
 	private List<EntityAnnotation> extractNewsArticleEntityAnnotations(Dataset dataset, String newsArticleUrl) {
 		try {
-			MediaItemAnnotationDaoFromDataset testObj = new MediaItemAnnotationDaoFromDataset(dataset, kbEntityMapper);
-			return testObj.findNewsArticleEntityAnnotations(newsArticleUrl);
+			MediaItemAnnotationDaoFromDataset miAnnDao = new MediaItemAnnotationDaoFromDataset(dataset, kbEntityMapper);
+			return miAnnDao.findNewsArticleEntityAnnotations(newsArticleUrl);
 		} catch (Exception e) {
 			log.error("Failed to extract EntityAnnotations for " + newsArticleUrl, e);
 			return ImmutableList.of();

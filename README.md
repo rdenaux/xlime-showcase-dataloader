@@ -3,11 +3,14 @@ Utilities for processing xLiMe data into a format suitable for the xLiMe Showcas
 # To execute
   * build the project (`mvn install`) or download release zip
   * unzip the dist file
-  * edit the various `properties` files in the `etc/` folder. In particular, point to an xLiMe Kafka instance, 
+  * create a mongo database and set-up the indices by configuring and running the `scripts/indexMongoCollections` 
+  * edit the various `properties` files in the `etc/` folder. In particular, 
+    point to an xLiMe Kafka instance (or send an email to request access to the xLiMe 
+    development kafka instance), 
   	choose a suitable consumer kafka group and point to your mongoDB instance
   * run `pushMediaItemsToMongo.sh` (or `.cmd` depending on your platform)
 
-#Indexing collections
+# Indexing collections
   * set up your mongo environment variables
   * change port and database path in the script if needed
   * run `indexMongoCollections.sh` (or `.cmd` depending on your platform)
