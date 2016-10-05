@@ -44,12 +44,8 @@ public class Summary {
 
 	@Override
 	public String toString() {
-		if (this.annotations != null){
-			return "Summary: Processed " + processed + " messages for Consumer " + consumerId + " on " + date + "\n\t"
+		return "Summary: Processed " + processed + " messages for Consumer " + consumerId + " on " + date + "\n\t"
 				+ annotations.toString();
-		}else{
-			return "No xLiMe resources read or stored yet";
-		}
 	
 	}
 

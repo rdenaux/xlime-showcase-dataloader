@@ -72,6 +72,15 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 	protected String generateSummary() {
 		return String.format("%s_%s processed=%s %s", 
 				getClass().getSimpleName(), instId, getMessagesProcessed(), summariseResourcesProcessed());
+		
+	}
+	
+	protected Summary generateObjectSummary(){
+		Summary sum = new Summary();
+		sum.setConsumerId(getClass().getSimpleName() + "_" + instId);
+		sum.setProcessed(getMessagesProcessed());
+		sum.setAnnotations(summariseResourcesProcessedForObject());
+		return sum;
 	}
 	
 	private String summariseResourcesProcessed() {
@@ -91,15 +100,7 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 		
 		return sb.toString();
 	}
-	
-	protected Summary generateObjectSummary(){
-		Summary sum = new Summary();
-		sum.setConsumerId(getClass().getSimpleName() + "_" + instId);
-		sum.setProcessed(getMessagesProcessed());
-		sum.setAnnotations(summariseResourcesProcessedForObject());
-		return sum;
-	}
-	
+
 	private Map<String,Long> summariseResourcesProcessedForObject() {
 		Set<Class<? extends XLiMeResource>> clzz = ImmutableSet.<Class<? extends XLiMeResource>>builder()
 				.addAll(resourcesRead.keySet()).addAll(resourcesStored.keySet()).build();
@@ -116,7 +117,6 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 		}
 		return annotations;
 	}
-
 	/**
 	 * Subclasses should implement the extraction of the {@link XLiMeResource} beans here.
 	 * 
@@ -203,3 +203,4 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 	
 	
 }
+
