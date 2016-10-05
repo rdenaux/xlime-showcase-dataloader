@@ -1,51 +1,50 @@
 package eu.xlime.kafka.rdf;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Date;
 import java.util.Calendar;
 
 public class Summary {
 	private String consumerId;
-	private Map<String,Long> annotations;
-	private long processed;
+	private Map<String,Long> counters;
 	private Date date; 
 	
 	public Summary(){
-		date = Calendar.getInstance().getTime();
+		this.date = Calendar.getInstance().getTime();
+		this.counters = new HashMap<String,Long>();
 	}
 
 	public String getConsumerId() {
-		return consumerId;
+		return this.consumerId;
 	}
 
 	public void setConsumerId(String consumerId) {
 		this.consumerId = consumerId;
 	}
 
-	public Map<String,Long> getAnnotations(){
-		return annotations;
+	public Map<String,Long> getCounters(){
+		return this.counters;
 	}
 	
-	public void setAnnotations(Map<String,Long> annotations){
-		this.annotations = annotations;
+	public void setCounter(String name, Long count){
+		this.counters.put(name, count);
 	}
 	
-	public long getProcessed() {
-		return processed;
+	public void addCounters(Map<String,Long> counters){
+		for (Map.Entry<String,Long> entry: counters.entrySet()){
+			this.counters.put(entry.getKey(), entry.getValue());
+		}
 	}
 
-	public void setProcessed(long processed) {
-		this.processed = processed;
-	}
-	
 	public Date getDate(){
 		return this.date;
 	}
 
 	public String toString() {
-		if (this.annotations != null){
-			return "Summary: Processed " + processed + " messages for Consumer " + consumerId + " on " + date + "\n\t"
-				+ annotations.toString();
+		if (this.counters != null){
+			return "Summary: Consumer " + this.consumerId + ", date: " + this.date + "\n\t"
+				+ this.counters.toString();
 		}else{
 			return "No xLiMe resources read or stored yet";
 		}
