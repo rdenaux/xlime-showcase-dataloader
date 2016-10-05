@@ -40,7 +40,7 @@ public class SubtitleSegmentToMongoTest {
 		
 		boolean result = testObj.processDataset(mm, ds.get());
 		assertTrue(result);
-		String summary = testObj.generateSummary();
+		String summary = testObj.generateSummaryString();
 		System.out.println("summary: " + summary);
 		assertNotNull(summary);
 	}

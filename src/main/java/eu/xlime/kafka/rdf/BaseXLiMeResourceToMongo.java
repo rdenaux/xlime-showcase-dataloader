@@ -69,30 +69,36 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 	}
 
 	@Override
-	protected String generateSummary() {
-		return String.format("%s_%s processed=%s %s", 
-				getClass().getSimpleName(), instId, getMessagesProcessed(), summariseResourcesProcessed());
-		
+	protected String generateSummaryString() {
+		Summary s = generateSummary();
+		return s.toString();
 	}
 	
-	private String summariseResourcesProcessed() {
+	protected Summary generateSummary(){
+		Summary sum = new Summary();
+		sum.setConsumerId(getClass().getSimpleName() + "_" + instId);
+		sum.setCounter("messagesProcessed", getMessagesProcessed());
+		sum.addCounters(summariseResourcesProcessed());
+		return sum;
+	}
+
+	private Map<String,Long> summariseResourcesProcessed() {
 		Set<Class<? extends XLiMeResource>> clzz = ImmutableSet.<Class<? extends XLiMeResource>>builder()
 				.addAll(resourcesRead.keySet()).addAll(resourcesStored.keySet()).build();
-		if (clzz.isEmpty()) return "\n\tNo xLiMe resources read or stored yet";
-		StringBuilder sb = new StringBuilder();
+		if (clzz.isEmpty()) return null;
+		Map<String,Long> annotations = new HashMap<String,Long>();
 		if (medItsInMessages > 0) {
-			sb.append(String.format("\n\tmediaItemsInMessages=%s", medItsInMessages));
+			annotations.put("mediaItemsInMessages", medItsInMessages);
 		}
 		for (Class<? extends XLiMeResource> clz: clzz) {
 			String tName = clz.getSimpleName();
-			sb.append("\n\t").append(
-					String.format("%s_Read=%s, %s_Stored=%s, %s_InMongo=%s", tName, getResourcesRead(clz), 
-							tName, getResourcesStored(clz), tName, tryGetMongoXLiMeResourceCount(clz)));	
+			annotations.put(String.format("%s_Read",tName),getResourcesRead(clz));
+			annotations.put(String.format("%s_Stored",tName),getResourcesStored(clz));
+			annotations.put(String.format("%s_InMongo", tName), tryGetMongoXLiMeResourceCount(clz));	
 		}
-		
-		return sb.toString();
+		return annotations;
 	}
-
+	
 	/**
 	 * Subclasses should implement the extraction of the {@link XLiMeResource} beans here.
 	 * 

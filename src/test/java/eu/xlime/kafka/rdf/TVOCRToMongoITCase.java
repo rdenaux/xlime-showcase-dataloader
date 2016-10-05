@@ -1,5 +1,6 @@
 package eu.xlime.kafka.rdf;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -35,11 +36,19 @@ public class TVOCRToMongoITCase {
 		assertTrue(ds.isPresent());
 		
 		
-		boolean result = testObj.processDataset(mm, ds.get());
-		assertTrue(result);
-		String summary = testObj.generateSummary();
-		System.out.println("summary: " + summary);
+		testObj.processDataset(mm, ds.get());
+		testObj.processDataset(mm, ds.get());
+
+		String summary = testObj.generateSummaryString();
+		System.out.println(summary);
 		assertNotNull(summary);
+		
+		Summary sum = testObj.generateSummary();
+		System.out.println(sum.toString());
+		assertEquals(Long.valueOf(2), sum.getCounters().get("messagesProcessed"));
+		assertEquals(Long.valueOf(2), sum.getCounters().get("OCRAnnotation_Stored"));
+		assertEquals(Long.valueOf(1), sum.getCounters().get("OCRAnnotation_InMongo"));
+		assertEquals("TVOCRToMongo_0",sum.getConsumerId());
 	}
 
 	private MessageAndMetadata<byte[], byte[]> mockKafkaMessage() {
