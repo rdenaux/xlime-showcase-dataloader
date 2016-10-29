@@ -3,18 +3,15 @@ package eu.xlime.kafka.rdf;
 import java.util.List;
 import java.util.Properties;
 
+import kafka.message.MessageAndMetadata;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import kafka.message.MessageAndMetadata;
 
 import com.google.common.collect.ImmutableList;
 import com.hp.hpl.jena.query.Dataset;
 
-import eu.xlime.bean.EntityAnnotation;
 import eu.xlime.bean.OCRAnnotation;
-import eu.xlime.bean.SubtitleSegment;
-import eu.xlime.bean.TVProgramBean;
 import eu.xlime.bean.XLiMeResource;
 import eu.xlime.dao.annotation.MediaItemAnnotationDaoFromDataset;
 import eu.xlime.kafka.ConfigOptions;

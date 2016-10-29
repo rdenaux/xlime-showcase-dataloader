@@ -1,22 +1,34 @@
 package eu.xlime.kafka.rdf;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import jersey.repackaged.com.google.common.collect.ImmutableMap;
 import kafka.message.MessageAndMetadata;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.hp.hpl.jena.query.Dataset;
 
+import eu.xlime.bean.ASRAnnotation;
+import eu.xlime.bean.EntityAnnotation;
 import eu.xlime.bean.MediaItem;
+import eu.xlime.bean.MicroPostBean;
+import eu.xlime.bean.NewsArticleBean;
+import eu.xlime.bean.OCRAnnotation;
+import eu.xlime.bean.StatMetrics;
+import eu.xlime.bean.SubtitleSegment;
+import eu.xlime.bean.TVProgramBean;
+import eu.xlime.bean.VideoSegment;
 import eu.xlime.bean.XLiMeResource;
 import eu.xlime.dao.MediaItemDao;
 import eu.xlime.dao.MongoXLiMeResourceStorer;
@@ -25,6 +37,7 @@ import eu.xlime.kafka.msgproc.BaseDatasetProcessor;
 import eu.xlime.kafka.msgproc.DatasetProcessor;
 import eu.xlime.util.KBEntityMapper;
 import eu.xlime.util.NullEnDBpediaKBEntityMapper;
+import eu.xlime.util.ResourceTypeResolver;
 import eu.xlime.util.XLiMeResourceTyper;
 
 /**
@@ -39,17 +52,23 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 	private static final Logger log = LoggerFactory.getLogger(BaseXLiMeResourceToMongo.class);
 
 	private static final XLiMeResourceTyper xresTyper = new XLiMeResourceTyper();
+	private static final ResourceTypeResolver xresResolver = new ResourceTypeResolver();
 	
 	/**
 	 * The component which performs the writing of the {@link XLiMeResource} beans to a mongo db. 
 	 */
 	private final MongoXLiMeResourceStorer mongoStorer;
+	
+	/**
+	 * {@link KBEntityMapper} used to canonicalise KB entity urls when producing {@link EntityAnnotation}s. 
+	 */
 	protected final KBEntityMapper kbEntityMapper;
 
 	/**
 	 * The number of media items (of all types) in the messages
 	 */
 	protected long medItsInMessages = 0;
+	
 	
 	/**
 	 * The number of the {@link XLiMeResource}s read (from Kafka messages), classified by their type
@@ -61,42 +80,113 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 	 */
 	private Map<Class<? extends XLiMeResource>, Long> resourcesStored = new HashMap<>();
 	
+	private class LatencyMeter {
+		/**
+		 * Accumulates the milliseconds between processed times and publication times of 
+		 * various resources. Used in combination with {@link #strictPubDateLatencyDataPoints} to
+		 * average 
+		 */
+		private long latencySumMs = 0;
+		private long latencyDataPoints = 0;
+		
+		public void accumulateLatency(long latencyMs) {
+			latencySumMs += latencyMs;
+			latencyDataPoints++;
+		}
+
+		public long readAvgLatencyMsAndReset() {
+			final long result = readAvgLatencyMs();
+			reset();
+			return result;
+		}
+		
+		public void reset() {
+			latencySumMs = 0;
+			latencyDataPoints = 0;
+		}
+		
+		public long readAvgLatencyMs() {
+			if (latencyDataPoints > 0) {
+				return latencySumMs / latencyDataPoints;
+			} else return 0;
+		}
+	}
+	
+	/**
+	 * Used to estimate the latency between publication date and processing date
+	 * for the processed resources. This is done strictly: if a given resource
+	 * has a publication date in the future, this is not included in this 
+	 * latency meter.
+	 * @see  #lenientPubDateLatencyMeter
+	 */
+	private LatencyMeter strictPubDateLatencyMeter = new LatencyMeter();
+	/**
+	 * Used to estimate the latency between publication date and processing date
+	 * for the processed resources. This is done leniently: if a given resource
+	 * has a publication date in the future, this is still included in this 
+	 * latency meter, which means the result may be distorted by data points for 
+	 * which the publication date has been read incorrectly. 
+	 */
+	private LatencyMeter lenientPubDateLatencyMeter = new LatencyMeter();
 	
 	public BaseXLiMeResourceToMongo(Properties props) {
 		super(props);
 		mongoStorer = new MongoXLiMeResourceStorer(props);
 		kbEntityMapper = new NullEnDBpediaKBEntityMapper();
 	}
-
-	@Override
-	protected String generateSummaryString() {
-		Summary s = generateSummary();
-		return s.toString();
-	}
 	
-	protected Summary generateSummary(){
-		Summary sum = new Summary();
-		sum.setConsumerId(getClass().getSimpleName() + "_" + instId);
+	@Override
+	protected Object generateSummary(){
+		StatMetrics sum = new StatMetrics();
+		sum.setMeterId(getClass().getSimpleName() + "_" + instId);
+		sum.setMeterStartDate(processorCreationDate);
+		sum.setCounter("bytesProcessed", getBytesProcessed());
 		sum.setCounter("messagesProcessed", getMessagesProcessed());
+		sum.setCounter("messageFailedToProcess", getMessagesFailedToProcess());
+		sum.setCounter("datasetProcessingTimeMs", getDatasetProcessingTimeInMs());
+		sum.setCounter("namedGraphs", getSeenNamedGraphs());
+		sum.setCounter("nullDatasets", getSeenNullDatasets());
+		sum.setCounter("rdfQuads", getSeenRDFQuads());
+		sum.setCounter("strictAvgLatencyMs", strictPubDateLatencyMeter.readAvgLatencyMsAndReset());
+		sum.setCounter("lenientAvgLatencyMs", lenientPubDateLatencyMeter.readAvgLatencyMsAndReset());		
 		sum.addCounters(summariseResourcesProcessed());
 		return sum;
 	}
 
+	@Override
+	protected void processSummaryObject(Object summary) {
+		super.processSummaryObject(summary);
+		if (summary instanceof StatMetrics) {
+			try {
+				StatMetrics sm = (StatMetrics)summary;
+				mongoStorer.insertOrUpdate(sm);
+			} catch (Exception e) {
+				log.error("Failed to insert metrics to Mongo.", e);
+			}
+		} else {
+			log.warn(String.format("Unexpected summary object. Expecting %s, but found %s", 
+					StatMetrics.class, summary));
+		}
+	}
+
 	private Map<String,Long> summariseResourcesProcessed() {
+		if (log.isTraceEnabled()) {
+			log.trace("Summarising resources processed based on\n\tread: " + resourcesRead + "\n\tstored: " + resourcesStored);
+		}
 		Set<Class<? extends XLiMeResource>> clzz = ImmutableSet.<Class<? extends XLiMeResource>>builder()
 				.addAll(resourcesRead.keySet()).addAll(resourcesStored.keySet()).build();
-		if (clzz.isEmpty()) return null;
-		Map<String,Long> annotations = new HashMap<String,Long>();
+		if (clzz.isEmpty()) return ImmutableMap.of();
+		Map<String,Long> result = new HashMap<String,Long>();
 		if (medItsInMessages > 0) {
-			annotations.put("mediaItemsInMessages", medItsInMessages);
+			result.put("mediaItemsInMessages", medItsInMessages);
 		}
 		for (Class<? extends XLiMeResource> clz: clzz) {
 			String tName = clz.getSimpleName();
-			annotations.put(String.format("%s_Read",tName),getResourcesRead(clz));
-			annotations.put(String.format("%s_Stored",tName),getResourcesStored(clz));
-			annotations.put(String.format("%s_InMongo", tName), tryGetMongoXLiMeResourceCount(clz));	
+			result.put(String.format("%s_Read",tName),getResourcesRead(clz));
+			result.put(String.format("%s_Stored",tName),getResourcesStored(clz));
+			result.put(String.format("%s_InMongo", tName), tryGetMongoXLiMeResourceCount(clz));	
 		}
-		return annotations;
+		return result;
 	}
 	
 	/**
@@ -119,7 +209,52 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 			long old = resourcesRead.containsKey(clz) ? resourcesRead.get(clz) : 0L;
 			resourcesRead.put(clz, old + (cBeans == null ? 0 : cBeans.size()));
 		}
-		return pushToMongo(beans);
+		boolean result = pushToMongo(beans);
+		tryAccumPubDateLatency(beans);
+		return result;
+	}
+
+	/**
+	 * Tries to accumulate data about the latency between the current (processing) date 
+	 * and the date when the beans were published (according to their metadata).
+	 * 
+	 * @param beans
+	 */
+	private void tryAccumPubDateLatency(List<? extends XLiMeResource> beans) {
+		Date now = new Date();
+		List<XLiMeResource> estimatable = new ArrayList<>();
+		for (XLiMeResource res: beans){
+			if (canEstimatePubDateLatency(res)) estimatable.add(res);
+		}
+		for (XLiMeResource res: estimatable) {
+			Optional<Date> optDate = findResourcePubDate(res);
+			if (optDate.isPresent()) {
+				Date pubDate = optDate.get();
+				long latencyMs = now.getTime() - pubDate.getTime();
+				if (latencyMs >= 0) {
+					strictPubDateLatencyMeter.accumulateLatency(latencyMs);
+				} else {
+					//potentially weird as we have negative latency, 
+					// this can be OK for e.g. TVPrograms as their EPG data is 
+					// available before broadcasting, but mostly this is undesired.   
+				} 
+				lenientPubDateLatencyMeter.accumulateLatency(latencyMs);
+			}
+		}
+		
+	}
+
+	private boolean canEstimatePubDateLatency(XLiMeResource res) {
+		return isInstanceOfOneOf(res, TVProgramBean.class, MicroPostBean.class, NewsArticleBean.class,
+				ASRAnnotation.class, OCRAnnotation.class, SubtitleSegment.class);
+	}
+
+	private boolean isInstanceOfOneOf(XLiMeResource res,
+			Class<? extends XLiMeResource>... classes) {
+		for (Class<? extends XLiMeResource> clz: classes) {
+			if (clz.isAssignableFrom(res.getClass())) return true; 
+		}
+		return false;
 	}
 
 	private boolean pushToMongo(List<? extends XLiMeResource> beans) {
@@ -138,6 +273,32 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 		return result;
 	}
 	
+	protected final Optional<Date> findResourcePubDate(XLiMeResource resource) {
+		try {
+			if (resource instanceof TVProgramBean) {
+				return Optional.fromNullable(((TVProgramBean) resource).getBroadcastDate().getTimestamp());
+			} else if (resource instanceof MicroPostBean) {
+				return Optional.fromNullable(((MicroPostBean) resource).getCreated().getTimestamp());
+			} else if (resource instanceof NewsArticleBean) {
+				return Optional.fromNullable(((NewsArticleBean) resource).getCreated().getTimestamp());
+			} else if (resource instanceof VideoSegment) {
+				return Optional.fromNullable(((VideoSegment) resource).getStartTime().getTimestamp());
+			} else	if (resource instanceof SubtitleSegment) {
+				return findResourcePubDate(((SubtitleSegment) resource).getPartOf());
+			} else if (resource instanceof ASRAnnotation) {
+				return findResourcePubDate(((ASRAnnotation) resource).getInSegment());
+			} else if (resource instanceof OCRAnnotation) {
+				return findResourcePubDate(((OCRAnnotation) resource).getInSegment());
+			} else {
+				log.warn("Cannot get publication date for resource " + resource);
+				return Optional.absent();
+			}
+		} catch (RuntimeException e) {
+			log.info("Failed to extract publication date for " + resource);
+			return Optional.absent();
+		}
+	}
+
 	protected final Long tryGetMongoXLiMeResourceCount(Class<? extends XLiMeResource> clz) {
 		try {
 			return mongoStorer.count(clz);
@@ -181,7 +342,4 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 		return ImmutableList.copyOf(result);
 	}
 
-	
-	
-	
 }

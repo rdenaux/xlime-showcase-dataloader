@@ -23,6 +23,15 @@ var mock = true;
 var minutesToKeep = 60 * 24 * 7; //7 days
 
 /**
+ * The number of minutes to keep tv annotations (subtitles, asr, ocr) after the cutoff date. 
+ * E.g if the cutoff date for media items is 2016-10-10T07:00:00, the cutoff date for tv annotations
+ * will be tvAnnsMinutesToKeepAfterStart later. For the default of 3 hours, this will be at 10 in the 
+ * morning the same day. This allows you to keep the annotations for programs starting at 7, but finishing  
+ * at 9 or 10. 
+ */
+var tvAnnsMinutesToKeepAfterStart = 60 * 3;
+
+/**
  * Returns the oldest publication date of a media item in the database, or the current date if there 
  * are no media items.
  * E.g. suppose we call this method on 1/6/16 and in the db we have:
@@ -45,7 +54,7 @@ function findMostRecentSharedDate() {
     if (cursor.hasNext()) {
         var microPost = cursor.next();
         newestMicroPostDate = microPost.created.timestamp;
-        print("Newest  micropost date: " + newestMicroPostDate);
+        log("Newest  micropost date: " + newestMicroPostDate);
     }
     
     cursor = db.NewsArticleBean.find().
@@ -54,7 +63,7 @@ function findMostRecentSharedDate() {
     if (cursor.hasNext()) {
         newsArt = cursor.next();
         newestNewsArtDate = newsArt.created.timestamp;
-        print("Newest news article date: " + newestNewsArtDate);
+        log("Newest news article date: " + newestNewsArtDate);
         //    printjson( newsArt );
     }
     
@@ -64,7 +73,7 @@ function findMostRecentSharedDate() {
     if (cursor.hasNext()) {
         tvProg = cursor.next();
         newestTVDate = tvProg.broadcastDate.timestamp;
-        print("Newest tv program date: " + newestTVDate);
+        log("Newest tv program date: " + newestTVDate);
         //    printjson( newestNewsArt );
     }
     return minDate(new Date(), //avoid dates in the future
@@ -83,7 +92,7 @@ function minDate(dateA, dateB) {
  */
 function calcCutoffDate() {
     mostRecentShared = findMostRecentSharedDate();
-    print("Most recent shared date " + mostRecentShared);
+    log("Most recent shared date " + mostRecentShared);
     return plusMinutes(mostRecentShared, -minutesToKeep);
 }
 
@@ -127,35 +136,43 @@ function removeTVProgramsBefore(cutoffDate) {
 
 function logItemsToRemove(cutoffDate) {
     cursor = microPostsBefore(cutoffDate);
-    print("MicroPosts before " + cutoffDate + ": " + cursor.count());
+    log("MicroPosts before " + cutoffDate + ": " + cursor.count());
     cursor = newsArticlesBefore(cutoffDate);
-    print("NewsArticles before " + cutoffDate + ": " + cursor.count());
+    log("NewsArticles before " + cutoffDate + ": " + cursor.count());
     cursor = tvProgramsBefore(cutoffDate);
-    print("TVprogs before " + cutoffDate + ": " + cursor.count());
+    log("TVprogs before " + cutoffDate + ": " + cursor.count());
 }
 
 
 function processAnnBatch(annResult, resUris, annsCursorFn, remAnnsFn) {
-//    print("\t updating " + annResult + " with a batch of " + resUris.length + " resource uris");
+//    log("\t updating " + annResult + " with a batch of " + resUris.length + " resource uris");
     annCursor = annsCursorFn(resUris);
     batchCnt = annCursor.count();
     annResult.count = annResult.count + batchCnt;
-//    print("\t found " + batchCnt + " annotations in current batch, total:  " + annResult.count);
+//    log("\t found " + batchCnt + " annotations in current batch, total:  " + annResult.count);
 
     var writeResult = remAnnsFn(resUris);
-    batchRemCnt = writeResult.nRemoved;
+    updateAnnResultWithWriteResult(annResult, writeResult);
+}
+
+function updateAnnResultWithWriteResult(annResult, writeResult) {
+    var batchRemCnt = writeResult.nRemoved;
     annResult.removed = annResult.removed + batchRemCnt;
-//    print("\t removed " + batchRemCnt + " annotations in current batch, total:  " + annResult.removed);
+//    log("\t removed " + batchRemCnt + " annotations in current batch, total:  " + annResult.removed);
     if (writeResult.hasWriteConcernError()) {
-        wcErr = writeResult.writeConcernError;
-        print("\twriteConcernError: " + wcErr);
+        var wcErr = writeResult.writeConcernError;
+        log("\twriteConcernError: " + wcErr);
         annResult.writeConcernErrors.push(wcErr);
     }
     if (writeResult.hasWriteError()) {
-        wErr = writeResult.writeError;
-        print("\twriteError: " + wErr);
+        var wErr = writeResult.writeError;
+        log("\twriteError: " + wErr);
         annResult.writeErrors.push(wErr);
     }
+}
+
+function log(msg) {
+    print("[" + new Date() + "] " + msg);
 }
 
 function processAnnsFor(mediaItemCursor, annsCursorFn, remAnnsFn, toResourceUriFn) {
@@ -167,9 +184,9 @@ function processAnnsFor(mediaItemCursor, annsCursorFn, remAnnsFn, toResourceUriF
         writeConcernErrors: []
     };
 
-//    print("Initialised annResult " + result);
+//    log("Initialised annResult " + result);
     
-    var batchSize = 100;
+    var batchSize = 500;
     var logBatchSize = 10000;
     toResourceUriFn = typeof toResourceUriFn !== 'undefined' ? toResourceUriFn : id;
     
@@ -182,23 +199,23 @@ function processAnnsFor(mediaItemCursor, annsCursorFn, remAnnsFn, toResourceUriF
             miUris.push(mediaItem._id);
             cnt++;
             if ((cnt % batchSize) == 0) {
-                //print("iterated through " + cnt + " of " + total);
+                //log("iterated through " + cnt + " of " + total);
                 var resUris = toResourceUriFn(miUris);
                 miUris = []; // clean to start next batch
                 processAnnBatch(result, resUris, annsCursorFn, remAnnsFn);
             }
             if ((cnt % logBatchSize) == 0) {
-                print("iterated through " + cnt + " of " + total);
+                log("iterated through " + cnt + " of " + total);
             }
         }
     } catch (err) {
         result.errors.push(err);
     }
-    print("finished iterating through " + cnt + " of " + total);
+    log("finished iterating through " + cnt + " of " + total);
     var resUris = toResourceUriFn(miUris);
     processAnnBatch(result, resUris, annsCursorFn, remAnnsFn);
     
-    print("Found a total of " + result.count + " entity annotations for the given cursor. Of which " + result.removed + " were removed");
+    log("Found a total of " + result.count + " entity annotations for the given cursor. Of which " + result.removed + " were removed");
     return result;
 }
 
@@ -211,28 +228,57 @@ function countEntAnnsFor(mediaItemCursor, toResourceUriFn) {
     return processAnnsFor(mediaItemCursor, entityAnnsForResourceUrls, mockRemove, toResourceUriFn);
 }
 
-function processOCRAnnotationsFor(mediaItemCursor) {
-    return processAnnsFor(mediaItemCursor, ocrAnnsForResourceUrls, removeOCRAnnsForResourceUrls);
+/**
+ * Returns an annotation removal result after applying removals using both a cutoff date and a cursor of 
+ * tv programs that will be removed.
+ * 
+ * @param tvannsCutoffDate
+ * @param annsByDateCursorFn
+ * @param annsByDateRemFn
+ * @param mediaItemCursor
+ * @param annsCursorFn
+ * @param remAnnsFn
+ * @returns {___anonymous8853_8861}
+ */
+function processTVAnnsByDateAndTVCursor(tvannsCutoffDate, annsByDateCursorFn, annsByDateRemFn, mediaItemCursor, annsCursorFn, remAnnsFn) {
+	var cnt = annsByDateCursorFn(tvannsCutoffDate).count();
+	var writeResult = annsByDateRemFn(tvannsCutoffDate);
+	var annResult = processAnnsFor(mediaItemCursor, annsCursorFn, remAnnsFn);
+	annResult.countFromDate = cnt;
+	annResult.countFromTVProgs = annResult.count;
+    annResult.count = annResult.count + cnt;
+	updateAnnResultWithWriteResult(annResult, writeResult);
+	return annResult;
 }
 
-function procesASRAnnotationsFor(mediaItemCursor) {
-    return processAnnsFor(mediaItemCursor, asrAnnsForResourceUrls, removeASRAnnsForResourceUrls);
+function processOCRAnnotationsFor(tvannsCutoffDate, mediaItemCursor) {
+	return processTVAnnsByDateAndTVCursor(tvannsCutoffDate, ocrAnnsBeforeDate, removeOcrAnnsBeforeDate, 
+			mediaItemCursor, ocrAnnsForResourceUrls, removeOCRAnnsForResourceUrls);
 }
 
-function countOCRAnnotationsFor(mediaItemCursor) {
-    return processAnnsFor(mediaItemCursor, ocrAnnsForResourceUrls, mockRemove);
+function processASRAnnotationsFor(tvannsCutoffDate, mediaItemCursor) {
+	return processTVAnnsByDateAndTVCursor(tvannsCutoffDate, asrAnnsBeforeDate, removeAsrAnnsBeforeDate, 
+			mediaItemCursor, asrAnnsForResourceUrls, removeASRAnnsForResourceUrls);
 }
 
-function countASRAnnotationsFor(mediaItemCursor) {
-    return processAnnsFor(mediaItemCursor, asrAnnsForResourceUrls, mockRemove);
+function countOCRAnnotationsFor(tvannsCutoffDate, mediaItemCursor) {
+	return processTVAnnsByDateAndTVCursor(tvannsCutoffDate, ocrAnnsBeforeDate, mockRemove, 
+			mediaItemCursor, ocrAnnsForResourceUrls, mockRemove);
 }
 
-function processSubtitlesToRemove(tvProgCursor) {
-    return processAnnsFor(tvProgCursor, subtitlesForTVProgUrls, removeSubtitlesForTVProgUrls);
+function countASRAnnotationsFor(tvannsCutoffDate, mediaItemCursor) {
+	return processTVAnnsByDateAndTVCursor(tvannsCutoffDate, asrAnnsBeforeDate, mockRemove, 
+			mediaItemCursor, asrAnnsForResourceUrls, mockRemove);
 }
 
-function countSubtitlesToRemove(tvProgCursor) {
-    return processAnnsFor(tvProgCursor, subtitlesForTVProgUrls, mockRemove);
+function processSubtitlesToRemove(tvannsCutoffDate, tvProgCursor) {
+	return processTVAnnsByDateAndTVCursor(tvannsCutoffDate, subtitlesBeforeDate, removeSubtitlesBeforeDate, 
+			tvProgCursor, subtitlesForTVProgUrls, removeSubtitlesForTVProgUrls);
+}
+
+function countSubtitlesToRemove(tvannsCutoffDate, tvProgCursor) {
+	return processTVAnnsByDateAndTVCursor(tvannsCutoffDate, subtitlesBeforeDate, mockRemove, 
+			tvProgCursor, subtitlesForTVProgUrls, mockRemove);
 }
 
 function asRegexPatterns(uris) {
@@ -253,24 +299,70 @@ function id(uris) {
 }
 
 function processAnnotationsToRemove(cutoffDate, isMock) {
+    //return processEntAnnsToRemoveBasedOnResourceUrl(cutoffDate, isMock);
+    return processEntAnnsToRemoveBasedOnInsertionDate(cutoffDate, isMock);	
+}
+
+function processEntAnnsToRemoveBasedOnInsertionDate(cutoffDate, isMock) {
+    isMock = typeof isMock !== 'undefined' ? isMock : true;
+
+    var result = {
+        count : 0,
+        removed: 0,
+        errors: [],
+        writeErrors: [],
+        writeConcernErrors: []
+    };
+    var cursor = entityAnnsBeforeDate(cutoffDate);
+    if (isMock) return result;
+    
+    result.count = cursor.count();
+    log("Removing " + result.count + " entity annotations");
+    var writeResult = removeEntityAnnsBeforeDate(cutoffDate);
+    log("Removed entity annotations");
+    result.removed = writeResult.nRemoved;
+    if (writeResult.hasWriteConcernError()) {
+        wcErr = writeResult.writeConcernError;
+        log("\twriteConcernError: " + wcErr);
+        result.writeConcernErrors.push(wcErr);
+    }
+    if (writeResult.hasWriteError()) {
+        wErr = writeResult.writeError;
+        log("\twriteError: " + wErr);
+        result.writeErrors.push(wErr);
+    }
+    return result;
+}
+
+/**
+ * Processes/removes EntityAnnotations from the database by first looking up media items
+ * affected by the cutoffDate and then looking up the EntityAnnotations which refer to
+ * (parts of those) media items.
+ * This is fairly slow as we need to generate batches of resourceUrls to query for.
+ */
+function processEntAnnsToRemoveBasedOnResourceUrl(cutoffDate, isMock) {
     isMock = typeof isMock !== 'undefined' ? isMock : true;
 
     var result = {};
     
     var cursor = microPostsBefore(cutoffDate);
-    print("Removing entAnns for " + cursor.count() + " microposts to delete");
+    log("Removing entAnns for " + cursor.count() + " microposts to delete");
     result.entityAnnotationsForMicroposts = isMock ? countEntAnnsFor(cursor) : processEntAnnsFor(cursor);
     
     cursor = newsArticlesBefore(cutoffDate);
-    print("Removing entAnns for " + cursor.count() + " news to delete");
+    log("Removing entAnns for " + cursor.count() + " news to delete");
     result.entityAnnotationsForNews = isMock ? countEntAnnsFor(cursor) : processEntAnnsFor(cursor);
     
     cursor = tvProgramsBefore(cutoffDate);
-    print("Removing entAnns for " + cursor.count() + " tvprogs to delete");
+    log("Removing subtitle entAnns for " + cursor.count() + " tvprogs to delete");
     result.entityAnnotationsForTVSubtitles = isMock ? countEntAnnsFor(cursor, tvUrisAsSubtitleUris) : processEntAnnsFor(cursor, tvUrisAsSubtitleUris);
 
+    cursor = tvProgramsBefore(cutoffDate);
+    log("Removing ASR entAnns for " + cursor.count() + " tvprogs to delete");
+    result.entityAnnotationsForTVSubtitles = isMock ? countEntAnnsFor(cursor, tvUrisAsAudioUris) : processEntAnnsFor(cursor, tvUrisAsAudioUris);
+    
 /*    cursor = tvProgramsBefore(cutoffDate);
-    print("Removing OCR annotations for tvprogs to delete");
+    log("Removing OCR annotations for tvprogs to delete");
     result.ocrAnnotationsForTV = isMock ? countOCRAnnotationsFor(cursor) : processOCRAnnotationsFor(cursor);
 */
     
@@ -278,26 +370,58 @@ function processAnnotationsToRemove(cutoffDate, isMock) {
 }
 
 function subtitlesForTVProgUrls(tvpUris) {
-    return db.SubtitleSegment.find( {_id: { $in: asRegexPatterns(tvpUris) }});
-}
-
-function entityAnnsForResourceUrls(resUrls) {
-    return db.EntityAnnotation.find( {resourceUrl: { $in: resUrls }});
-}
-
-function ocrAnnsForResourceUrls(resUrls) {
-    return db.OCRAnnotation.find( { "inSegment.partOf": { $in: resUrls }} );
-}
-
-function asrAnnsForResourceUrls(resUrls) {
-    return db.ASRAnnotation.find( { "inSegment.partOf": { $in: resUrls }} );
+	return db.SubtitleSegment.find( {_id: { $in: asRegexPatterns(tvpUris) }});
 }
 
 function removeSubtitlesForTVProgUrls(tvpUris)  {
     return db.SubtitleSegment.remove( {_id: { $in: asRegexPatterns(tvpUris) }});    
 }
 
-function mockRemove(resUrls) {
+function subtitlesBeforeDate(aDate) {
+	return db.SubtitleSegment.find( {"partOf.startTime.timestamp": { $lte: aDate }});
+}
+
+function removeSubtitlesBeforeDate(aDate) {
+	return db.SubtitleSegment.remove( {"partOf.startTime.timestamp": { $lte: aDate }});
+}
+
+function entityAnnsForResourceUrls(resUrls) {
+    return db.EntityAnnotation.find( {resourceUrl: { $in: resUrls }});
+}
+
+function entityAnnsBeforeDate(aDate) {
+    return db.EntityAnnotation.find( {insertionDate: { $lte: aDate} } );
+}
+
+function removeEntityAnnsBeforeDate(aDate) {
+    return db.EntityAnnotation.remove({insertionDate: { $lte: aDate} } );
+}
+
+function ocrAnnsForResourceUrls(resUrls) {
+    return db.OCRAnnotation.find( { "inSegment.partOf": { $in: resUrls }} );
+}
+
+function ocrAnnsBeforeDate(aDate) {
+    return db.OCRAnnotation.find( { "inSegment.startTime.timestamp": { $lte: aDate }} );
+}
+
+function removeOcrAnnsBeforeDate(aDate) {
+    return db.OCRAnnotation.remove( { "inSegment.startTime.timestamp": { $lte: aDate }} );
+}
+
+function asrAnnsForResourceUrls(resUrls) {
+    return db.ASRAnnotation.find( { "inSegment.partOf": { $in: resUrls }} );
+}
+
+function asrAnnsBeforeDate(aDate) {
+    return db.ASRAnnotation.find( { "inSegment.startTime.timestamp": { $lte: aDate }} );
+}
+
+function removeAsrAnnsBeforeDate(aDate) {
+    return db.ASRAnnotation.remove( { "inSegment.startTime.timestamp": { $lte: aDate }} );
+}
+
+function mockRemove(ignoredParam) {
     return {
         nRemoved: 0,
         hasWriteError: function() { return false; },
@@ -321,6 +445,14 @@ function tvUrisAsSubtitleUris(tvUris) {
     var result = [];
     for (var i = 0; i < tvUris.length; i++) {
         result.push(tvUris[i] + "/subtitles");
+    }
+    return result;
+}
+
+function tvUrisAsAudioUris(tvUris) {
+    var result = [];
+    for (var i = 0; i < tvUris.length; i++) {
+        result.push(tvUris[i] + "/audio");
     }
     return result;
 }
@@ -352,12 +484,12 @@ function processMediaItems(cutoffDate, cursorFn, removeFn, isMock) {
         result.removed = writeResult.nRemoved;
         if (writeResult.hasWriteConcernError()) {
             wcErr = writeResult.writeConcernError;
-            print("\twriteConcernError: " + wcErr);
+            log("\twriteConcernError: " + wcErr);
             result.writeConcernErrors.push(wcErr);
         }
         if (writeResult.hasWriteError()) {
             wErr = writeResult.writeError;
-            print("\twriteError: " + wErr);
+            log("\twriteError: " + wErr);
             annResult.writeErrors.push(wErr);
         }
     }
@@ -375,33 +507,39 @@ function pruneMongoDB(isMock) {
 	var result = {};
 	result.isMockRun = isMock;
 	result.startDate = new Date();
-	cutoffDate = calcCutoffDate();
+	var cutoffDate = calcCutoffDate();
 	result.cutoffDate = cutoffDate;
-	print("Cutoffdate: " + cutoffDate);
+	log("Cutoffdate: " + cutoffDate);
 	logItemsToRemove(cutoffDate);
 	var tvCursor = tvProgramsBefore(cutoffDate);
-	print("Removing Subtitles for " + tvCursor.count() + " tv programs to remove");
-	result.subtitleRemoval = mock ? countSubtitlesToRemove(tvCursor) : processSubtitlesToRemove(tvCursor);
+	var tvAnnsCutoffDate = plusMinutes(cutoffDate, tvAnnsMinutesToKeepAfterStart);
+	result.tvAnnsCutoffDate = tvAnnsCutoffDate;
+	log("Removing Subtitles for " + tvCursor.count() + " tv programs to remove");
+	result.subtitleRemoval = mock ? countSubtitlesToRemove(tvAnnsCutoffDate, tvCursor) : processSubtitlesToRemove(tvAnnsCutoffDate, tvCursor);
 	tvCursor = tvProgramsBefore(cutoffDate);
-	print("Removing OCR annotations for " + tvCursor.count() + " tv programs");
-	result.ocrRemoval = mock ? countOCRAnnotationsFor(tvCursor) : processOCRAnnotationsFor(tvCursor);
+	log("Removing OCR annotations for " + tvCursor.count() + " tv programs");
+	result.ocrRemoval = mock ? countOCRAnnotationsFor(tvAnnsCutoffDate, tvCursor) : processOCRAnnotationsFor(tvAnnsCutoffDate, tvCursor);
 	tvCursor = tvProgramsBefore(cutoffDate);
-	print("Removing ASR annotations for " + tvCursor.count() + " tv programs");
-	result.asrRemoval = mock ? countASRAnnotationsFor(tvCursor) : processASRAnnotationsFor(tvCursor);
-	result.annotations = processAnnotationsToRemove(cutoffDate, mock);
+	log("Removing ASR annotations for " + tvCursor.count() + " tv programs");
+	result.asrRemoval = mock ? countASRAnnotationsFor(tvAnnsCutoffDate, tvCursor) : processASRAnnotationsFor(tvAnnsCutoffDate, tvCursor);
+	result.entAnnotations = processAnnotationsToRemove(cutoffDate, mock);
+  log("Removing TV programs");  
 	result.tvRemoval = processTVPrograms(cutoffDate, mock);
-	result.newsRemoval = processNewsArticles(cutoffDate, mock);
+  log("Removing News articles");  
+ result.newsRemoval = processNewsArticles(cutoffDate, mock);
+  log("Removing Microposts");      
 	result.micropostRemoval = processMicroposts(cutoffDate, mock);
+  log("Finished pruning task");      
 	result.endDate = new Date();
 	return result;
 }
 
 pruningObj = pruneMongoDB(mock);
-printjson("Finished mongoDB pruning");
+log("Finished mongoDB pruning");
 printjson(pruningObj);
 try {
 	db.Pruning.insertOne(pruningObj);
-	print("Saved pruning object to mongo");
+	log("Saved pruning object to mongo");
 } catch (err) {
-	print("Failed to save pruning object " + err);
+	log("Failed to save pruning object " + err);
 }

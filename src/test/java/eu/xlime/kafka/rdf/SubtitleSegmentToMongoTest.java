@@ -1,7 +1,6 @@
 package eu.xlime.kafka.rdf;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.Properties;
@@ -16,6 +15,7 @@ import org.junit.Test;
 import com.google.common.base.Optional;
 import com.hp.hpl.jena.query.Dataset;
 
+import eu.xlime.bean.StatMetrics;
 import eu.xlime.mongo.ConfigOptions;
 import eu.xlime.testkit.DatasetLoader;
 
@@ -40,9 +40,18 @@ public class SubtitleSegmentToMongoTest {
 		
 		boolean result = testObj.processDataset(mm, ds.get());
 		assertTrue(result);
-		String summary = testObj.generateSummaryString();
-		System.out.println("summary: " + summary);
-		assertNotNull(summary);
+		StatMetrics sum = (StatMetrics)testObj.generateSummary();
+		System.out.println("summary: " + sum);
+		assertNotNull(sum);
+		assertTrue(sum.getCounters().keySet().contains("rdfQuads"));
+		assertEquals(Long.valueOf(1), sum.getCounters().get("messagesProcessed"));
+		assertEquals(Long.valueOf(5), sum.getCounters().get("SubtitleSegment_Read"));
+		assertEquals(Long.valueOf(15), sum.getCounters().get("EntityAnnotation_Read"));
+		assertEquals(Long.valueOf(2), sum.getCounters().get("namedGraphs"));
+//		assertEquals(Long.valueOf(5), sum.getCounters().get("SubtitleSegment_Stored"));
+//		assertEquals(Long.valueOf(20), sum.getCounters().get("SubtitleSegment_InMongo"));
+		assertEquals("SubtitleSegmentToMongo_0",sum.getMeterId());
+		assertEquals(Long.valueOf(438), sum.getCounters().get("rdfQuads"));
 	}
 	
 }

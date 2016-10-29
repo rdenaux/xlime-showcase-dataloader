@@ -11,6 +11,7 @@ import java.util.Set;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 import eu.xlime.Config;
@@ -46,6 +47,21 @@ public class AnnotatedUIEntityToMongoITCase {
 		assertNotNull(summs);
 	}
 	
+//	@Test
+	//TODO: this should be a main in AnnotatedUIEntityToMongo
+	@Ignore("This is a long running process")
+	public void test_loadToMongoFromDBpediaTtlFiles_all() throws Exception {
+		AnnotatedUIEntityToMongo testObj = new AnnotatedUIEntityToMongo(new Config().getCfgProps());
+		List<String> entUrls = ImmutableList.of();
+		File labelsF = new File("D:/ont/dbpedia-2015-10/labels_en.ttl");
+		File imagesF = new File("D:/ont/dbpedia-2015-10/images_en.ttl");
+		File typesF = new File("D:/ont/dbpedia-2015-10/instance_types_transitive_en.ttl");
+		Map<File, EntityUpsertFromTTlSummary> summs = testObj.loadToMongoFromDBpediaTtlFiles(ImmutableSet.copyOf(entUrls), "en", 
+				labelsF,
+				imagesF, //); //, 
+				typesF);
+		assertNotNull(summs);
+	}
 	
 	@Test
 	@Ignore("use predefined lists of entUrls")

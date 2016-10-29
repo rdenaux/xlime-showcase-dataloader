@@ -40,6 +40,9 @@ db.EntityAnnotation.createIndex({"entity._id":"hashed"});
 //resource.url: allows to search entities by the url of the resource that was annotated (e.g. a news article uri or a subtitle track uri)
 //  (for collection with ~2M EntAnns, indexing takes 25s)
 db.EntityAnnotation.createIndex({"resourceUrl":"hashed"});
+// enable searching by insertion and mention dates
+db.EntityAnnotation.createIndex({"insertionDate": -1});
+db.EntityAnnotation.createIndex({"mentionDate.timestamp": -1});
 
 
 //SubtitleSegment
@@ -56,9 +59,13 @@ db.SubtitleSegment.createIndex({"text":"text"},{language_override:"lang"});
 db.OCRAnnotation.createIndex( { "inSegment.partOf._id" : "hashed" } )
 // recognizedText (allows to search by text)
 db.OCRAnnotation.createIndex( { "recognizedText": "text" } )
+// inSegment.startTime.timestamp: allows to search by date of the video segment
+db.OCRAnnotation.createIndex({"inSegment.startTime.timestamp":-1});
 
 //ASRAnnotation
 // inSegment.partOf.url (allows to search ASRAnnotations by tvProgId)
 db.ASRAnnotation.createIndex( { "inSegment.partOf._id" : "hashed" } )
 // recognizedText (allows to search by text)
 db.ASRAnnotation.createIndex( { "recognizedText": "text"}, { language_override: "lang" } )
+// inSegment.startTime.timestamp: allows to search by date of the video segment
+db.ASRAnnotation.createIndex( { "inSegment.startTime.timestamp":-1});

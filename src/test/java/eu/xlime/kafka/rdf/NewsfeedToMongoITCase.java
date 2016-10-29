@@ -1,7 +1,6 @@
 package eu.xlime.kafka.rdf;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.Properties;
@@ -16,6 +15,7 @@ import org.junit.Test;
 import com.google.common.base.Optional;
 import com.hp.hpl.jena.query.Dataset;
 
+import eu.xlime.bean.StatMetrics;
 import eu.xlime.mongo.ConfigOptions;
 import eu.xlime.testkit.DatasetLoader;
 
@@ -36,9 +36,15 @@ public class NewsfeedToMongoITCase {
 		
 		boolean result = testObj.processDataset(mm, ds.get());
 		assertTrue(result);
-		String summary = testObj.generateSummary();
-		System.out.println("summary: " + summary);
-		assertNotNull(summary);
+		StatMetrics sum = (StatMetrics)testObj.generateSummary();
+		System.out.println("summary: " + sum);
+		assertNotNull(sum);
+		assertTrue(sum.getCounters().keySet().contains("rdfQuads"));
+		assertEquals(Long.valueOf(1), sum.getCounters().get("messagesProcessed"));
+		assertEquals(Long.valueOf(14), sum.getCounters().get("EntityAnnotation_Read"));
+		assertEquals(Long.valueOf(1), sum.getCounters().get("NewsArticleBean_Read"));
+		assertTrue(sum.getMeterId().startsWith("NewsfeedToMongo_"));
+		assertEquals(Long.valueOf(402), sum.getCounters().get("rdfQuads"));
 	}
 
 	private MessageAndMetadata<byte[], byte[]> mockKafkaMessage() {

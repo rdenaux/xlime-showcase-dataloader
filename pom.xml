@@ -22,7 +22,7 @@
   	<dependency>
   		<groupId>eu.xlime</groupId>
   		<artifactId>kafka-consumer</artifactId>
-  		<version>0.0.2</version>
+  		<version>0.0.3</version>
   		<exclusions>
   			<exclusion>
   				<artifactId>jsonld-java</artifactId>
@@ -33,7 +33,7 @@
   	<dependency>
   		<groupId>eu.xlime</groupId>
   		<artifactId>frontend-services</artifactId>
-  		<version>0.0.6</version>
+  		<version>0.0.8</version>
   	</dependency>
     <dependency>
       <groupId>junit</groupId>

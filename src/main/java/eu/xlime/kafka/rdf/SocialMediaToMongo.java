@@ -56,8 +56,8 @@ public class SocialMediaToMongo extends BaseXLiMeResourceToMongo {
 	
 	private List<EntityAnnotation> extractMicropostEntityAnnotations(Dataset dataset, String microPostUrl) {
 		try {
-			MediaItemAnnotationDaoFromDataset testObj = new MediaItemAnnotationDaoFromDataset(dataset, kbEntityMapper);
-			return testObj.findMicroPostEntityAnnotations(microPostUrl);
+			MediaItemAnnotationDaoFromDataset miaDao = new MediaItemAnnotationDaoFromDataset(dataset, kbEntityMapper);
+			return miaDao.findMicroPostEntityAnnotations(microPostUrl);
 		} catch (Exception e) {
 			log.error("Failed to extract EntityAnnotations for " + microPostUrl, e);
 			return ImmutableList.of();

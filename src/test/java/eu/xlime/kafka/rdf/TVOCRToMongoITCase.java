@@ -1,7 +1,6 @@
 package eu.xlime.kafka.rdf;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -17,6 +16,7 @@ import org.junit.Test;
 import com.google.common.base.Optional;
 import com.hp.hpl.jena.query.Dataset;
 
+import eu.xlime.bean.StatMetrics;
 import eu.xlime.mongo.ConfigOptions;
 import eu.xlime.testkit.DatasetLoader;
 
@@ -38,17 +38,16 @@ public class TVOCRToMongoITCase {
 		
 		testObj.processDataset(mm, ds.get());
 		testObj.processDataset(mm, ds.get());
-
-		String summary = testObj.generateSummaryString();
-		System.out.println(summary);
-		assertNotNull(summary);
 		
-		Summary sum = testObj.generateSummary();
+		StatMetrics sum = (StatMetrics)testObj.generateSummary();
 		System.out.println(sum.toString());
+		assertTrue(sum.getCounters().keySet().contains("rdfQuads"));
 		assertEquals(Long.valueOf(2), sum.getCounters().get("messagesProcessed"));
-		assertEquals(Long.valueOf(2), sum.getCounters().get("OCRAnnotation_Stored"));
-		assertEquals(Long.valueOf(1), sum.getCounters().get("OCRAnnotation_InMongo"));
-		assertEquals("TVOCRToMongo_0",sum.getConsumerId());
+		assertEquals(Long.valueOf(2), sum.getCounters().get("OCRAnnotation_Read"));
+//		assertEquals(Long.valueOf(2), sum.getCounters().get("OCRAnnotation_Stored"));
+//		assertEquals(Long.valueOf(1), sum.getCounters().get("OCRAnnotation_InMongo"));
+		assertTrue(sum.getMeterId().startsWith("TVOCRToMongo_"));
+		assertEquals(Long.valueOf(18), sum.getCounters().get("rdfQuads"));
 	}
 
 	private MessageAndMetadata<byte[], byte[]> mockKafkaMessage() {

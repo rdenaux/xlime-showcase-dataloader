@@ -1,0 +1,51 @@
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix freebase: <http://rdf.freebase.com/ns/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix kdo: <http://kdo.render-project.eu/kdo#> .
+@prefix ma: <http://www.w3.org/ns/ma-ont#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix wikide: <http://de.wikipedia.org/wiki/> .
+@prefix wikien: <http://en.wikipedia.org/wiki/> .
+@prefix wikies: <http://es.wikipedia.org/wiki/> .
+@prefix wikisl: <http://sl.wikipedia.org/wiki/> .
+@prefix xlime: <http://xlime-project.org/vocab/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://zattoo.com/processed/117081801> {
+    <http://zattoo.com/program/117081801/audio> a ma:AudioTrack ;
+        ma:hasLanguage [ rdfs:label "en" ] ;
+        xlime:hasAnnotation [ rdfs:label "Brewery" ;
+                xlime:hasConfidence 1e+00 ;
+                xlime:hasEntity wikide:Brauerei,
+                    wikien:Brewery,
+                    wikies:Cervecería,
+                    <http://fr.wikipedia.org/wiki/Brasserie>,
+                    <http://hr.wikipedia.org/wiki/Pivovara>,
+                    <http://it.wikipedia.org/wiki/Birrificio>,
+                    <http://pt.wikipedia.org/wiki/Cervejaria>,
+                    <http://ru.wikipedia.org/wiki/Пивоваренная_компания> ] ;
+        xlime:hasProgDetail [ xlime:hasPDImageUrl <http://cms-staging.zattoo.com/system/images/9fab/6f9f/2cab/1675/9563/format_480x360.jpg> ;
+                xlime:hasPDSource "Deutsche Welle" ;
+                xlime:hasPDStartTime "2016-10-06T09:30:00+02:00"^^xsd:dateTime ;
+                xlime:hasPDTitle "Projekt Zukunft" ] ;
+        xlime:hasRecognisedSpeech [ xlime:hasASREngine <http://mediaspeech.com/webservice> ;
+                xlime:hasASRText "outside the brewery to temporarily reduced demand on the power Greer . And Breweries . Hold the simulators allowed to serve as an energy reservoir for the entire poll . Companies jury together in a virtual power plant whom the regional power distribution generates province and which are shared by the gold companies and the virtual power plant operate . Or ... The personal power plant is tucked away in an office building in downtown Munich from the outside and you would know is there not the virtual plants can replace the entire call operated power" ;
+                xlime:hasStartTime "2016-10-06T08:48:51.500000+01:00"^^xsd:dateTime ;
+                xlime:hasStreamPosition 100499577.0 ;
+                xlime:hasZattooCID "deutsche-welle" ] .
+}
+
+{
+    <http://zattoo.com/processed/117081801> a prov:Entity ;
+        prov:wasAttributedTo <http://ijs.si> ;
+        prov:wasGeneratedBy [ a prov:Activity ;
+                prov:endedAtTime "2016-10-06T07:50:35+00:00"^^xsd:dateTime ;
+                prov:startedAtTime "2016-10-06T07:50:31.297202+00:00"^^xsd:dateTime ] .
+}
+

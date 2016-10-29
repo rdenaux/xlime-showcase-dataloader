@@ -257,16 +257,20 @@ public class AnnotatedUIEntityToMongo {
 
 				private boolean processTriple(Triple t) {
 					try {
-						String tripEntUri = t.getSubject().getURI();
-						if (entUrls.contains(tripEntUri)) {
+						final String tripEntUri = t.getSubject().getURI();
+						KBEntityUri kbEntUri = KBEntityUri.of(tripEntUri);
+						final String canonEntUri = kbEntUri.asIri();
+						if (kbEntUri.isMainDBpediaEntity() && 
+								(entUrls.isEmpty() || entUrls.contains(tripEntUri) || entUrls.contains(canonEntUri))) {
 							summary.missingEntUrls.remove(tripEntUri);
+							summary.missingEntUrls.remove(canonEntUri);
 							if (currEntBuilder == null) {
-								currEntBuilder = retrieveOrNew(locale, tripEntUri);
-							} else	if (!currEntBuilder.getUrl().equals(tripEntUri)) {
+								currEntBuilder = retrieveOrNew(locale, canonEntUri);
+							} else	if (!currEntBuilder.getUrl().equals(canonEntUri)) {
 								//finish building currEnt and store in Mongo
 								mongoStorer.insertOrUpdate(currEntBuilder, Optional.of(locale));
 								summary.upserts++;
-								currEntBuilder = retrieveOrNew(locale, tripEntUri);
+								currEntBuilder = retrieveOrNew(locale, canonEntUri);
 							}
 							appendInfoToCurrent(t);
 						} else {
