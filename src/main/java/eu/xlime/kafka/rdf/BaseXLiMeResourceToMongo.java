@@ -28,6 +28,7 @@ import eu.xlime.bean.OCRAnnotation;
 import eu.xlime.bean.StatMetrics;
 import eu.xlime.bean.SubtitleSegment;
 import eu.xlime.bean.TVProgramBean;
+import eu.xlime.bean.UIDate;
 import eu.xlime.bean.VideoSegment;
 import eu.xlime.bean.XLiMeResource;
 import eu.xlime.dao.MediaItemDao;
@@ -342,4 +343,36 @@ public abstract class BaseXLiMeResourceToMongo extends BaseDatasetProcessor {
 		return ImmutableList.copyOf(result);
 	}
 
+	/**
+	 * Tries to modify a list of {@link EntityAnnotation}s by setting their mentionDates
+	 * by trying to find the publication date of an available list of media items.
+	 * it is assumed that the {@link EntityAnnotation}s refer to one of the {@link MediaItem}s via
+	 * their {@link EntityAnnotation#getResourceUrl()}.
+	 * 
+	 * @param entAnns
+	 * @param mits
+	 */
+	protected final void setMentionDates(List<EntityAnnotation> entAnns, List<MediaItem> mits) {
+		for (EntityAnnotation entAnn: entAnns) {
+			Optional<MediaItem> mit = findByUrl(entAnn.getResourceUrl(), mits);
+			if (mit.isPresent()) {
+				Optional<Date> optPubDate = findResourcePubDate(mit.get());
+				if (optPubDate.isPresent()) {
+					entAnn.setMentionDate(new UIDate(optPubDate.get()));
+				}
+			}
+		}
+	}
+
+	private Optional<MediaItem> findByUrl(String resourceUrl,
+			List<MediaItem> mits) {
+		if (resourceUrl == null) return Optional.absent();
+		for (MediaItem mit: mits) {
+			if (resourceUrl.equals(mit.getUrl())) {
+				return Optional.of(mit);
+			}
+		}
+		return Optional.absent();
+	}
+	
 }

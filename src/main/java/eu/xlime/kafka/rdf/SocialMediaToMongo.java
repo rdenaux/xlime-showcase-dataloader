@@ -45,7 +45,9 @@ public class SocialMediaToMongo extends BaseXLiMeResourceToMongo {
 			List<MediaItem> microPosts = extractXLiMeMediaItems(mm, dataset, MicroPostBean.class); 
 			builder.addAll(microPosts);
 			for (MediaItem mit: microPosts) {
-				builder.addAll(extractMicropostEntityAnnotations(dataset, mit.getUrl()));
+				List<EntityAnnotation> entAnns = extractMicropostEntityAnnotations(dataset, mit.getUrl());
+				setMentionDates(entAnns, microPosts);
+				builder.addAll(entAnns);
 			}
 			//TODO: add activities
 		} catch (Exception e) {

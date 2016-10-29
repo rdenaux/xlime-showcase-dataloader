@@ -1,5 +1,6 @@
 package eu.xlime.kafka.rdf;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -8,12 +9,14 @@ import org.slf4j.LoggerFactory;
 
 import kafka.message.MessageAndMetadata;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.hp.hpl.jena.query.Dataset;
 
 import eu.xlime.bean.EntityAnnotation;
 import eu.xlime.bean.MediaItem;
 import eu.xlime.bean.NewsArticleBean;
+import eu.xlime.bean.UIDate;
 import eu.xlime.bean.XLiMeResource;
 import eu.xlime.dao.annotation.MediaItemAnnotationDaoFromDataset;
 import eu.xlime.kafka.ConfigOptions;
@@ -46,6 +49,7 @@ public class NewsfeedToMongo extends BaseXLiMeResourceToMongo {
 			builder.addAll(newsArts);
 			for (MediaItem mit: newsArts) {
 				List<EntityAnnotation> entAnns = extractNewsArticleEntityAnnotations(dataset, mit.getUrl());
+				setMentionDates(entAnns, newsArts);
 //				log.info("Found entAnns: " + entAnns);
 				builder.addAll(entAnns);
 			}
@@ -56,7 +60,7 @@ public class NewsfeedToMongo extends BaseXLiMeResourceToMongo {
 		}
 		return builder.build(); 
 	}
-
+	
 	private List<EntityAnnotation> extractNewsArticleEntityAnnotations(Dataset dataset, String newsArticleUrl) {
 		try {
 			MediaItemAnnotationDaoFromDataset miAnnDao = new MediaItemAnnotationDaoFromDataset(dataset, kbEntityMapper);
